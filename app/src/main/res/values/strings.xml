@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NightOwlTracker</string>
+    <string name="image_for_image_view">image for image view</string>
+</resources>
