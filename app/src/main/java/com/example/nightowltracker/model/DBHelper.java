@@ -1,4 +1,4 @@
-package com.example.nightowltracker.Model;
+package com.example.nightowltracker.model;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

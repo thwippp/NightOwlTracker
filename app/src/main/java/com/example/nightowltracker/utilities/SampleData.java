@@ -1,6 +1,6 @@
-package com.example.nightowltracker.Utilities;
+package com.example.nightowltracker.utilities;
 
-import com.example.nightowltracker.Model.AcademicSession;
+import com.example.nightowltracker.model.AcademicSession;
 
 import java.sql.Date;
 import java.util.ArrayList;

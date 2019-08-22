@@ -1,4 +1,4 @@
-package com.example.nightowltracker.Model;
+package com.example.nightowltracker.model;
 
 import android.net.Uri;
 

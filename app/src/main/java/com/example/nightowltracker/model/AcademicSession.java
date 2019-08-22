@@ -1,9 +1,8 @@
-package com.example.nightowltracker.Model;
+package com.example.nightowltracker.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class AcademicSession {
     private int sessionId;
