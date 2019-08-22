@@ -1,8 +1,9 @@
 package com.example.nightowltracker.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nightowltracker.R;
 import com.example.nightowltracker.model.DBHelper;
 import com.example.nightowltracker.ui.RecyclerViewAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -39,10 +41,18 @@ public class MainActivity extends AppCompatActivity {
         initRecyclerView();
 
         // Creates DB object
-        myHelper = new DBHelper(MainActivity.this);
-        myHelper.getWritableDatabase();  // creates or opens database
-        Toast.makeText(MainActivity.this, myHelper.getDatabaseName() + " opened!", Toast.LENGTH_SHORT).show();
+//        myHelper = new DBHelper(MainActivity.this);
+//        myHelper.getWritableDatabase();  // creates or opens database
+//        Toast.makeText(MainActivity.this, myHelper.getDatabaseName() + " opened!", Toast.LENGTH_SHORT).show();
 
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, AcademicSessionActivity.class));
+            }
+        });
 
 
     }
@@ -51,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
 
-        myHelper.close();
-        Toast.makeText(MainActivity.this, myHelper.getDatabaseName() + " closed!", Toast.LENGTH_SHORT).show();
+//        myHelper.close();
+//        Toast.makeText(MainActivity.this, myHelper.getDatabaseName() + " closed!", Toast.LENGTH_SHORT).show();
     }
 
 
