@@ -1,4 +1,4 @@
-package com.example.nightowltracker.model;
+package com.example.nightowltracker.database;
 
 
 import androidx.room.Entity;
@@ -7,26 +7,26 @@ import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "Enrollment")
+@Entity(tableName = "EnrollmentEntity")
 
-public class Enrollment {
+public class EnrollmentEntity {
     @PrimaryKey(autoGenerate = true)
     private int enrollmentId;
     private int userId;
     private int classId;
 
     @Ignore
-    public Enrollment() {
+    public EnrollmentEntity() {
     }
 
-    public Enrollment(int enrollmentId, int userId, int classId) {
+    public EnrollmentEntity(int enrollmentId, int userId, int classId) {
         this.enrollmentId = enrollmentId;
         this.userId = userId;
         this.classId = classId;
     }
 
     @Ignore
-    public Enrollment(int userId, int classId) {
+    public EnrollmentEntity(int userId, int classId) {
         this.userId = userId;
         this.classId = classId;
     }
@@ -57,7 +57,7 @@ public class Enrollment {
 
     @Override
     public String toString() {
-        return "Enrollment{" +
+        return "EnrollmentEntity{" +
                 "enrollmentId=" + enrollmentId +
                 ", userId=" + userId +
                 ", classId=" + classId +
@@ -66,7 +66,7 @@ public class Enrollment {
 
     public ArrayList<String> createTableEnrollment() {
         ArrayList enrollmentTable = new ArrayList();
-        String tableName = "Enrollment";
+        String tableName = "EnrollmentEntity";
         String columnNamesAndDataTypes = "enrollmentId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, userId INTEGER, classId INTEGER";
         enrollmentTable.add(tableName);
         enrollmentTable.add(columnNamesAndDataTypes);

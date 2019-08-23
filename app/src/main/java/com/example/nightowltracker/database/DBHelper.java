@@ -1,4 +1,4 @@
-package com.example.nightowltracker.model;
+package com.example.nightowltracker.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -56,7 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("startDate", String.valueOf(startDate));
         contentValues.put("endDate", String.valueOf(endDate));
 
-        long result = db.insert("AcademicSession", null, contentValues);
+        long result = db.insert("AcademicSessionEntity", null, contentValues);
         return result != -1;
     }
 
@@ -70,7 +70,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<String> getAS() {
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM AcademicSession";
+        String sql = "SELECT * FROM AcademicSessionEntity";
         ArrayList<String> terms = null;
 
         String[] cols = new String[3];
@@ -78,7 +78,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cols[1] = "startDate";
         cols[2] = "endDate";
 
-        Cursor cursor = db.query("AcademicSession", cols, "Select ALL", null, null, null, null);
+        Cursor cursor = db.query("AcademicSessionEntity", cols, "Select ALL", null, null, null, null);
         if (cursor.getCount() > 0) {
 // returned data
             if (cursor.moveToFirst()) {

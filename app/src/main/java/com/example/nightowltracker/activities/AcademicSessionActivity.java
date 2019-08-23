@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightowltracker.R;
-import com.example.nightowltracker.model.DBHelper;
+import com.example.nightowltracker.database.DBHelper;
 import com.example.nightowltracker.ui.RecyclerViewAdapter;
 
 import java.util.ArrayList;

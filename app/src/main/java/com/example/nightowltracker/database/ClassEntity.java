@@ -1,5 +1,4 @@
-package com.example.nightowltracker.model;
-
+package com.example.nightowltracker.database;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 
 @Entity(tableName = "Class")
 
-public class Class {
+public class ClassEntity {
     @PrimaryKey(autoGenerate = true)
     private int classId;
     private String title;
@@ -18,10 +17,10 @@ public class Class {
     private int sessionId;
 
     @Ignore
-    public Class() {
+    public ClassEntity() {
     }
 
-    public Class(int classId, String title, String classCode, String status, int sessionId) {
+    public ClassEntity(int classId, String title, String classCode, String status, int sessionId) {
         this.classId = classId;
         this.title = title;
         this.classCode = classCode;
@@ -30,7 +29,7 @@ public class Class {
     }
 
     @Ignore
-    public Class(String title, String classCode, String status, int sessionId) {
+    public ClassEntity(String title, String classCode, String status, int sessionId) {
         this.title = title;
         this.classCode = classCode;
         this.status = status;
@@ -79,7 +78,7 @@ public class Class {
 
     @Override
     public String toString() {
-        return "ClassActivity{" +
+        return "ClassEntity{" +
                 "classId=" + classId +
                 ", title='" + title + '\'' +
                 ", classCode='" + classCode + '\'' +

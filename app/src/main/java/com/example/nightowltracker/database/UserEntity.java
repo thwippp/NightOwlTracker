@@ -1,4 +1,4 @@
-package com.example.nightowltracker.model;
+package com.example.nightowltracker.database;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "User")
+@Entity(tableName = "UserEntity")
 
-public class User {
+public class UserEntity {
     @PrimaryKey(autoGenerate = true)
     private int userId;
     private String username;
@@ -20,10 +20,10 @@ public class User {
     private String sms;
 
     @Ignore
-    public User() {
+    public UserEntity() {
     }
 
-    public User(int userId, String username, String givenName, String familyName, String role, String email, String phone, String sms) {
+    public UserEntity(int userId, String username, String givenName, String familyName, String role, String email, String phone, String sms) {
         this.userId = userId;
         this.username = username;
         this.givenName = givenName;
@@ -35,7 +35,7 @@ public class User {
     }
 
     @Ignore
-    public User(String username, String givenName, String familyName, String role, String email, String phone, String sms) {
+    public UserEntity(String username, String givenName, String familyName, String role, String email, String phone, String sms) {
         this.username = username;
         this.givenName = givenName;
         this.familyName = familyName;
@@ -111,7 +111,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserEntity{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", givenName='" + givenName + '\'' +
@@ -125,7 +125,7 @@ public class User {
 
     public ArrayList<String> createTableUser() {
         ArrayList userTable = new ArrayList();
-        String tableName = "User";
+        String tableName = "UserEntity";
         String columnNamesAndDataTypes = "userId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username TEXT, givenName TEXT, familyName TEXT, role TEXT, email TEXT, phone TEXT, sms TEXT";
         userTable.add(tableName);
         userTable.add(columnNamesAndDataTypes);

@@ -1,4 +1,4 @@
-package com.example.nightowltracker.model;
+package com.example.nightowltracker.database;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey;
 import java.util.ArrayList;
 import java.util.Date;
 
-@Entity(tableName = "LineItem")
+@Entity(tableName = "LineItemEntity")
 
-public class LineItem {
+public class LineItemEntity {
     @PrimaryKey(autoGenerate = true)
     private int lineItemId;
     private String title;
@@ -20,10 +20,10 @@ public class LineItem {
     private int classId;
 
     @Ignore
-    public LineItem() {
+    public LineItemEntity() {
     }
 
-    public LineItem(int lineItemId, String title, String description, String category, Date assignDate, Date dueDate, int classId) {
+    public LineItemEntity(int lineItemId, String title, String description, String category, Date assignDate, Date dueDate, int classId) {
         this.lineItemId = lineItemId;
         this.title = title;
         this.description = description;
@@ -34,7 +34,7 @@ public class LineItem {
     }
 
     @Ignore
-    public LineItem(String title, String description, String category, Date assignDate, Date dueDate, int classId) {
+    public LineItemEntity(String title, String description, String category, Date assignDate, Date dueDate, int classId) {
         this.title = title;
         this.description = description;
         this.category = category;
@@ -101,7 +101,7 @@ public class LineItem {
 
     @Override
     public String toString() {
-        return "LineItem{" +
+        return "LineItemEntity{" +
                 "lineItemId=" + lineItemId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
@@ -114,7 +114,7 @@ public class LineItem {
 
     public ArrayList<String> createTableLineItem() {
         ArrayList lineItemTable = new ArrayList();
-        String tableName = "LineItem";
+        String tableName = "LineItemEntity";
         String columnNamesAndDataTypes = "lineItemId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, category TEXT, assignDate DATE, dueDate DATE, classId INTEGER";
         lineItemTable.add(tableName);
         lineItemTable.add(columnNamesAndDataTypes);

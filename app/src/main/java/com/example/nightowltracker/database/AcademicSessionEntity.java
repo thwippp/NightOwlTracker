@@ -1,4 +1,4 @@
-package com.example.nightowltracker.model;
+package com.example.nightowltracker.database;
 
 
 import androidx.room.Entity;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 @Entity(tableName = "AcademicSession")
 
-public class AcademicSession {
+public class AcademicSessionEntity {
     @PrimaryKey(autoGenerate = true)
     private int sessionId;
     private String title;
@@ -18,11 +18,11 @@ public class AcademicSession {
     private Date endDate;
 
     @Ignore
-    public AcademicSession(){
+    public AcademicSessionEntity() {
 
     }
 
-    public AcademicSession(int sessionId, String title, Date startDate, Date endDate) {
+    public AcademicSessionEntity(int sessionId, String title, Date startDate, Date endDate) {
         this.sessionId = sessionId;
         this.title = title;
         this.startDate = startDate;
@@ -30,7 +30,7 @@ public class AcademicSession {
     }
 
     @Ignore
-    public AcademicSession(String title, Date startDate, Date endDate) {
+    public AcademicSessionEntity(String title, Date startDate, Date endDate) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -70,7 +70,7 @@ public class AcademicSession {
 
     @Override
     public String toString() {
-        return "AcademicSession{" +
+        return "AcademicSessionEntity{" +
                 "sessionId=" + sessionId +
                 ", title='" + title + '\'' +
                 ", startDate=" + startDate +
@@ -82,7 +82,7 @@ public class AcademicSession {
 
     public ArrayList<String> createTableAcademicSession() {
         ArrayList academicSessionTable = new ArrayList();
-        String tableName = "AcademicSession";
+        String tableName = "AcademicSessionEntity";
         String columnNamesAndDataTypes = "sessionId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title TEXT, startDate DATE, endDate DATE";
         academicSessionTable.add(tableName);
         academicSessionTable.add(columnNamesAndDataTypes);

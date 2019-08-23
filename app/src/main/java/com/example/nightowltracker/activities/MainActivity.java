@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightowltracker.R;
-import com.example.nightowltracker.model.AcademicSession;
-import com.example.nightowltracker.model.DBHelper;
-import com.example.nightowltracker.model.Enrollment;
-import com.example.nightowltracker.model.LineItem;
-import com.example.nightowltracker.model.User;
+import com.example.nightowltracker.database.AcademicSessionEntity;
+import com.example.nightowltracker.database.ClassEntity;
+import com.example.nightowltracker.database.DBHelper;
+import com.example.nightowltracker.database.EnrollmentEntity;
+import com.example.nightowltracker.database.LineItemEntity;
+import com.example.nightowltracker.database.UserEntity;
 import com.example.nightowltracker.ui.RecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -48,21 +49,22 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, myHelper.getDatabaseName() + " opened!", Toast.LENGTH_SHORT).show();
 
         // Initialize DB Tables
-        AcademicSession academicSession = new AcademicSession();
-        ArrayList<String> academicSessionTable = academicSession.createTableAcademicSession();
+        AcademicSessionEntity academicSessionEntity = new AcademicSessionEntity();
+        ArrayList<String> academicSessionTable = academicSessionEntity.createTableAcademicSession();
 
         // TODO rename Class to Course???  Is there a global rename?
-        com.example.nightowltracker.model.Class aClass = new com.example.nightowltracker.model.Class();
-        ArrayList<String> classTable = aClass.createTableClass();
+        // TODO ClassEntity may have taken care of that
+        ClassEntity classEntity = new ClassEntity();
+        ArrayList<String> classTable = classEntity.createTableClass();
 
-        Enrollment enrollment = new Enrollment();
+        EnrollmentEntity enrollment = new EnrollmentEntity();
         ArrayList<String> enrollmentTable = enrollment.createTableEnrollment();
 
-        LineItem lineItem = new LineItem();
-        ArrayList<String> lineItemTable = lineItem.createTableLineItem();
+        LineItemEntity lineItemEntity = new LineItemEntity();
+        ArrayList<String> lineItemTable = lineItemEntity.createTableLineItem();
 
-        User user = new User();
-        ArrayList<String> userTable = user.createTableUser();
+        UserEntity userEntity = new UserEntity();
+        ArrayList<String> userTable = userEntity.createTableUser();
 
         // Create tables
         myHelper.createTable(academicSessionTable.get(0), academicSessionTable.get(1));
@@ -72,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         myHelper.createTable(userTable.get(0), userTable.get(1));
 
         // Set FKs strings
-        String fk_class_sessionId = myHelper.setForeignKeyString("fk_class_sessionId", "sessionId", "AcademicSession", "sessionId");
-        String fk_enrollment_userId = myHelper.setForeignKeyString("fk_enrollment_userId", "userId", "User", "userId");
+        String fk_class_sessionId = myHelper.setForeignKeyString("fk_class_sessionId", "sessionId", "AcademicSessionEntity", "sessionId");
+        String fk_enrollment_userId = myHelper.setForeignKeyString("fk_enrollment_userId", "userId", "UserEntity", "userId");
         String fk_enrollment_classId = myHelper.setForeignKeyString("fk_enrollment_classId", "classId", "Class", "classId");
         String fk_lineItem_classId = myHelper.setForeignKeyString("fk_lineItem_classId", "classId", "Class", "classId");
 

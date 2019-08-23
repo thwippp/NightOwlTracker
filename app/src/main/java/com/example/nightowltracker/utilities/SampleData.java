@@ -1,6 +1,6 @@
 package com.example.nightowltracker.utilities;
 
-import com.example.nightowltracker.model.AcademicSession;
+import com.example.nightowltracker.database.AcademicSessionEntity;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -19,11 +19,11 @@ public class SampleData {
         return (Date) cal.getTime();
     }
 
-    public static ArrayList<AcademicSession> getAcademicSessions(){
-        ArrayList<AcademicSession> as = new ArrayList<>();
-        as.add(new AcademicSession(1, "Term 1", Date.valueOf("2019-09-04"), Date.valueOf("2019-12-20")));
-        as.add(new AcademicSession(2, "Term 2", Date.valueOf("2020-01-04"), Date.valueOf("2020-03-20")));
-        as.add(new AcademicSession(3, "Term 3", Date.valueOf("2020-03-30"), Date.valueOf("2020-06-12")));
+    public static ArrayList<AcademicSessionEntity> getAcademicSessions() {
+        ArrayList<AcademicSessionEntity> as = new ArrayList<>();
+        as.add(new AcademicSessionEntity(1, "Term 1", Date.valueOf("2019-09-04"), Date.valueOf("2019-12-20")));
+        as.add(new AcademicSessionEntity(2, "Term 2", Date.valueOf("2020-01-04"), Date.valueOf("2020-03-20")));
+        as.add(new AcademicSessionEntity(3, "Term 3", Date.valueOf("2020-03-30"), Date.valueOf("2020-06-12")));
         return as;
     }
 
