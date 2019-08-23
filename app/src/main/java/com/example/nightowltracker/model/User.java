@@ -1,5 +1,7 @@
 package com.example.nightowltracker.model;
 
+import java.util.ArrayList;
+
 public class User {
 
     private int userId;
@@ -112,4 +114,14 @@ public class User {
                 ", sms='" + sms + '\'' +
                 '}';
     }
+
+    public ArrayList<String> createTableUser() {
+        ArrayList userTable = new ArrayList();
+        String tableName = "User";
+        String columnNamesAndDataTypes = "userId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username TEXT, givenName TEXT, familyName TEXT, role TEXT, email TEXT, phone TEXT, sms TEXT";
+        userTable.add(tableName);
+        userTable.add(columnNamesAndDataTypes);
+        return userTable;
+    }
+
 }

@@ -10,16 +10,6 @@ public class AcademicSession {
     private Date startDate;
     private Date endDate;
 
-//    private Date stringToDate(String stringDate) {
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
-//        try {
-//            return formatter.parse(stringDate);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
     public AcademicSession(){
 
     }
@@ -29,8 +19,6 @@ public class AcademicSession {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
-//        this.startDate = stringToDate(startDate);
-//        this.endDate = stringToDate(endDate);
     }
 
     public AcademicSession(String title, Date startDate, Date endDate) {
@@ -38,17 +26,6 @@ public class AcademicSession {
         this.startDate = startDate;
         this.endDate = endDate;
     }
-
-    public ArrayList<String> createTableAcademicSession(){
-        ArrayList<String> as = new ArrayList();
-        String tableName = "AcademicSession";
-        String columnNamesAndDataTypes = "sessionId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title TEXT, startDate DATE, endDate DATE";
-        as.add(tableName);
-        as.add(columnNamesAndDataTypes);
-
-        return as;
-    }
-
 
     public int getSessionId() {
         return sessionId;
@@ -91,4 +68,16 @@ public class AcademicSession {
                 ", endDate=" + endDate +
                 '}';
     }
+
+    // TODO set FKs on ALL tables
+
+    public ArrayList<String> createTableAcademicSession() {
+        ArrayList academicSessionTable = new ArrayList();
+        String tableName = "AcademicSession";
+        String columnNamesAndDataTypes = "sessionId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title TEXT, startDate DATE, endDate DATE";
+        academicSessionTable.add(tableName);
+        academicSessionTable.add(columnNamesAndDataTypes);
+        return academicSessionTable;
+    }
+
 }

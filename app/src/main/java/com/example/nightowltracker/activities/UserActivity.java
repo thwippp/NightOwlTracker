@@ -8,34 +8,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightowltracker.R;
-import com.example.nightowltracker.model.DBHelper;
 import com.example.nightowltracker.ui.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 
-public class AcademicSessionActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity {
 
-
-    private static final String TAG = "AcademicSessionActivity";
-    // Instance variable for SQLite DB Helper Object
-    DBHelper myHelper;
-
-    // vars
+    private static final String TAG = "UserActivity";
     private ArrayList<String> mNames = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_academic_session);
+        setContentView(R.layout.activity_user);
 
         Log.d(TAG, "onCreate: started.");
-
-        ArrayList<String> result = myHelper.getAS();
-
-        mNames.addAll(result);
-
-//        mNames.add("Term 1");
-//        mNames.add("Term 2");
+        mNames.add("User 1");
+        mNames.add("User 2");
+        mNames.add("User 3");
 
         // Starts the RecyclerView
         initRecyclerView();
@@ -53,6 +44,4 @@ public class AcademicSessionActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-
-
 }

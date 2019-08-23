@@ -1,6 +1,8 @@
 package com.example.nightowltracker.model;
 
 
+import java.util.ArrayList;
+
 public class Enrollment {
 
     private int enrollmentId;
@@ -53,4 +55,14 @@ public class Enrollment {
                 ", classId=" + classId +
                 '}';
     }
+
+    public ArrayList<String> createTableEnrollment() {
+        ArrayList enrollmentTable = new ArrayList();
+        String tableName = "Enrollment";
+        String columnNamesAndDataTypes = "enrollmentId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, userId INTEGER, classId INTEGER";
+        enrollmentTable.add(tableName);
+        enrollmentTable.add(columnNamesAndDataTypes);
+        return enrollmentTable;
+    }
+
 }

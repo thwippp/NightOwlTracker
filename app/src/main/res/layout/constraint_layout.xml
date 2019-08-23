@@ -26,16 +26,4 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/recycler_view_item" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recycler_view"
-        app:srcCompat="@android:drawable/ic_btn_speak_now" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

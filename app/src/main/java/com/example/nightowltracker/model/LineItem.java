@@ -1,5 +1,6 @@
 package com.example.nightowltracker.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class LineItem {
@@ -102,4 +103,14 @@ public class LineItem {
                 ", classId=" + classId +
                 '}';
     }
+
+    public ArrayList<String> createTableLineItem() {
+        ArrayList lineItemTable = new ArrayList();
+        String tableName = "LineItem";
+        String columnNamesAndDataTypes = "lineItemId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, category TEXT, assignDate DATE, dueDate DATE, classId INTEGER";
+        lineItemTable.add(tableName);
+        lineItemTable.add(columnNamesAndDataTypes);
+        return lineItemTable;
+    }
+
 }

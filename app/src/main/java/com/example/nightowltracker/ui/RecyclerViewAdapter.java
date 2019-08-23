@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightowltracker.R;
 import com.example.nightowltracker.activities.AcademicSessionActivity;
+import com.example.nightowltracker.activities.ClassActivity;
 import com.example.nightowltracker.activities.MainActivity;
+import com.example.nightowltracker.activities.UserActivity;
 
 import java.util.ArrayList;
 
@@ -26,12 +28,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> mTitle = new ArrayList<>();
     private Context mContext;
     private Context context;
+//    private Cursor mCursor;
 
 
     public RecyclerViewAdapter(Context mContext, ArrayList<String> mTitle) {
         this.mTitle = mTitle;
         this.mContext = mContext;
     }
+
+//    public RecyclerViewAdapter(Context mContext, Cursor mCursor){
+//        this.mContext = mContext;
+//        this.mCursor = mCursor;
+//    }
 
     @NonNull
     @Override
@@ -52,11 +60,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on: " + mTitle.get(position));
 
-                Intent intent = null;
+                // TODO Find a way to switch activities based on name of item clicked
+                Intent intent;
 
                 switch (mTitle.get(position)) {
                     case "Terms":
                         intent = new Intent(context, AcademicSessionActivity.class);
+                        break;
+                    case "Classes":
+                        intent = new Intent(context, ClassActivity.class);
+                        break;
+                    case "Users":
+                        intent = new Intent(context, UserActivity.class);
                         break;
                     default:
                         intent = new Intent(context, MainActivity.class);
@@ -83,7 +98,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
-            text = itemView.findViewById(R.id.textView1);
+            text = itemView.findViewById(R.id.recycler_view_textView);
             parentLayout = itemView.findViewById(R.id.linearLayout);
         }
     }

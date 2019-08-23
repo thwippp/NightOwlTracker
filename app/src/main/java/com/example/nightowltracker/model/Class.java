@@ -1,6 +1,8 @@
 package com.example.nightowltracker.model;
 
 
+import java.util.ArrayList;
+
 public class Class {
 
     private int classId;
@@ -69,7 +71,7 @@ public class Class {
 
     @Override
     public String toString() {
-        return "Class{" +
+        return "ClassActivity{" +
                 "classId=" + classId +
                 ", title='" + title + '\'' +
                 ", classCode='" + classCode + '\'' +
@@ -77,4 +79,14 @@ public class Class {
                 ", sessionId=" + sessionId +
                 '}';
     }
+
+    public ArrayList<String> createTableClass() {
+        ArrayList classTable = new ArrayList();
+        String tableName = "Class";
+        String columnNamesAndDataTypes = "classId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title TEXT, classCode TEXT, status TEXT, sessionId INTEGER";
+        classTable.add(tableName);
+        classTable.add(columnNamesAndDataTypes);
+        return classTable;
+    }
+
 }
