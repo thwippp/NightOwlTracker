@@ -30,9 +30,10 @@ public class AcademicSessionActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: started.");
 
-        ArrayList<String> result = myHelper.getAS();
+        ArrayList<String> result;
+        result = myHelper.getAS();
 
-        mNames.addAll(result);
+        mNames.add(result.get(0));
 
 //        mNames.add("Term 1");
 //        mNames.add("Term 2");

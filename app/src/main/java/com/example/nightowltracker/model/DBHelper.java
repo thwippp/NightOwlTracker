@@ -73,15 +73,23 @@ public class DBHelper extends SQLiteOpenHelper {
         String sql = "SELECT * FROM AcademicSession";
         ArrayList<String> terms = null;
 
-        Cursor cursor = db.rawQuery(sql, null);
+        String[] cols = new String[3];
+        cols[0] = "title";
+        cols[1] = "startDate";
+        cols[2] = "endDate";
+
+        Cursor cursor = db.query("AcademicSession", cols, "Select ALL", null, null, null, null);
         if (cursor.getCount() > 0) {
-            // returned data
+// returned data
             if (cursor.moveToFirst()) {
                 do {
+                    System.out.println(cursor.getString(0));
+                    System.out.println(cursor.getString(1));
+                    System.out.println(cursor.getString(2));
                     terms.add(cursor.getString(0));
                     terms.add(cursor.getString(1));
                     terms.add(cursor.getString(2));
-                    // display search results here or in recyclerview
+// display search results here or in recyclerview
                 } while (cursor.moveToNext());
             }
         } else {
@@ -90,5 +98,4 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return terms;
     }
-
 }

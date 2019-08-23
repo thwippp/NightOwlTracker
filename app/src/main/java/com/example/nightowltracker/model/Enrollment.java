@@ -1,14 +1,21 @@
 package com.example.nightowltracker.model;
 
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 
-public class Enrollment {
+@Entity(tableName = "Enrollment")
 
+public class Enrollment {
+    @PrimaryKey(autoGenerate = true)
     private int enrollmentId;
     private int userId;
     private int classId;
 
+    @Ignore
     public Enrollment() {
     }
 
@@ -18,6 +25,7 @@ public class Enrollment {
         this.classId = classId;
     }
 
+    @Ignore
     public Enrollment(int userId, int classId) {
         this.userId = userId;
         this.classId = classId;

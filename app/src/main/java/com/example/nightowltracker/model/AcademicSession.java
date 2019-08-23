@@ -1,15 +1,23 @@
 package com.example.nightowltracker.model;
 
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.sql.Date;
 import java.util.ArrayList;
 
+@Entity(tableName = "AcademicSession")
+
 public class AcademicSession {
+    @PrimaryKey(autoGenerate = true)
     private int sessionId;
     private String title;
     private Date startDate;
     private Date endDate;
 
+    @Ignore
     public AcademicSession(){
 
     }
@@ -21,6 +29,7 @@ public class AcademicSession {
         this.endDate = endDate;
     }
 
+    @Ignore
     public AcademicSession(String title, Date startDate, Date endDate) {
         this.title = title;
         this.startDate = startDate;

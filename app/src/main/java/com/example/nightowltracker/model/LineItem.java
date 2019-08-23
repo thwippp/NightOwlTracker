@@ -1,10 +1,16 @@
 package com.example.nightowltracker.model;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-public class LineItem {
+@Entity(tableName = "LineItem")
 
+public class LineItem {
+    @PrimaryKey(autoGenerate = true)
     private int lineItemId;
     private String title;
     private String description;
@@ -13,6 +19,7 @@ public class LineItem {
     private Date dueDate;
     private int classId;
 
+    @Ignore
     public LineItem() {
     }
 
@@ -26,6 +33,7 @@ public class LineItem {
         this.classId = classId;
     }
 
+    @Ignore
     public LineItem(String title, String description, String category, Date assignDate, Date dueDate, int classId) {
         this.title = title;
         this.description = description;

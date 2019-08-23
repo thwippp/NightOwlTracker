@@ -1,16 +1,23 @@
 package com.example.nightowltracker.model;
 
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 
-public class Class {
+@Entity(tableName = "Class")
 
+public class Class {
+    @PrimaryKey(autoGenerate = true)
     private int classId;
     private String title;
     private String classCode;
     private String status;
     private int sessionId;
 
+    @Ignore
     public Class() {
     }
 
@@ -22,6 +29,7 @@ public class Class {
         this.sessionId = sessionId;
     }
 
+    @Ignore
     public Class(String title, String classCode, String status, int sessionId) {
         this.title = title;
         this.classCode = classCode;

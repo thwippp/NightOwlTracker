@@ -28,18 +28,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> mTitle = new ArrayList<>();
     private Context mContext;
     private Context context;
-//    private Cursor mCursor;
-
 
     public RecyclerViewAdapter(Context mContext, ArrayList<String> mTitle) {
         this.mTitle = mTitle;
         this.mContext = mContext;
     }
-
-//    public RecyclerViewAdapter(Context mContext, Cursor mCursor){
-//        this.mContext = mContext;
-//        this.mCursor = mCursor;
-//    }
 
     @NonNull
     @Override
@@ -52,7 +45,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
-
 
         holder.text.setText(mTitle.get(position));
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
