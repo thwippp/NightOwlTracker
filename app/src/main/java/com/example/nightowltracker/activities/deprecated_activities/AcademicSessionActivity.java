@@ -1,4 +1,4 @@
-package com.example.nightowltracker.activities;
+package com.example.nightowltracker.activities.deprecated_activities;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,27 +8,35 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightowltracker.R;
+import com.example.nightowltracker.database.DBHelper;
 import com.example.nightowltracker.ui.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 
-public class ClassActivity extends AppCompatActivity {
+public class AcademicSessionActivity extends AppCompatActivity {
+
 
     private static final String TAG = "AcademicSessionActivity";
-    private ArrayList<String> mNames = new ArrayList<>();
+    // Instance variable for SQLite DB Helper Object
+    DBHelper myHelper;
 
+    // vars
+    private ArrayList<String> mNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_class);
-
+        setContentView(R.layout.activity_academic_session);
 
         Log.d(TAG, "onCreate: started.");
-        mNames.add("Class 1");
-        mNames.add("Class 2");
-        mNames.add("Class 3");
-        mNames.add("Class 4");
+
+        ArrayList<String> result;
+        result = myHelper.getAS();
+
+        mNames.add(result.get(0));
+
+//        mNames.add("Term 1");
+//        mNames.add("Term 2");
 
         // Starts the RecyclerView
         initRecyclerView();
@@ -46,4 +54,6 @@ public class ClassActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+
 }

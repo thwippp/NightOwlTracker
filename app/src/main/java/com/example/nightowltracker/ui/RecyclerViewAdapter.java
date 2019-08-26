@@ -14,10 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightowltracker.R;
-import com.example.nightowltracker.activities.AcademicSessionActivity;
-import com.example.nightowltracker.activities.ClassActivity;
 import com.example.nightowltracker.activities.MainActivity;
-import com.example.nightowltracker.activities.UserActivity;
+import com.example.nightowltracker.activities.deprecated_activities.AcademicSessionActivity;
+import com.example.nightowltracker.activities.deprecated_activities.ClassActivity;
+import com.example.nightowltracker.activities.deprecated_activities.UserActivity;
 
 import java.util.ArrayList;
 

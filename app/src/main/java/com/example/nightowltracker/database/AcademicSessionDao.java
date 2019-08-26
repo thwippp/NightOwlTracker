@@ -15,12 +15,12 @@ public interface AcademicSessionDao {
     void insertAcademicSession(AcademicSessionEntity academicSessionEntity);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAllAcademicSession(List<AcademicSessionEntity> academicSession);
+    void insertAllAcademicSessions(List<AcademicSessionEntity> academicSession);
 
     @Delete
     void deleteAcademicSession(AcademicSessionEntity academicSessionEntity);
 
-    @Query("SELECT * FROM academicsession WEHRE sessionId = :id")
+    @Query("SELECT * FROM academicsession WHERE sessionId = :id")
     AcademicSessionEntity getAcademicSessionById(int id);
 
     @Query("SELECT * FROM academicsession ORDER BY startDate DESC")

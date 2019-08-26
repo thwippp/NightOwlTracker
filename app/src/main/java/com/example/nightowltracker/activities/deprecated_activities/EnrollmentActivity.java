@@ -1,4 +1,4 @@
-package com.example.nightowltracker.activities;
+package com.example.nightowltracker.activities.deprecated_activities;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,24 +12,21 @@ import com.example.nightowltracker.ui.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 
-public class LineItemActivity extends AppCompatActivity {
+public class EnrollmentActivity extends AppCompatActivity {
 
-    private static final String TAG = "LineItemActivity";
+    private static final String TAG = "EnrollmentActivity";
     private ArrayList<String> mNames = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_line_item);
+        setContentView(R.layout.activity_enrollment);
 
 
         Log.d(TAG, "onCreate: started.");
-        mNames.add("LineItem 1");
-        mNames.add("LineItem 2");
-        mNames.add("LineItem 3");
-        mNames.add("LineItem 4");
-        mNames.add("LineItem 5");
+        mNames.add("EnrollmentEntity 1");
+        mNames.add("EnrollmentEntity 2");
 
         // Starts the RecyclerView
         initRecyclerView();
