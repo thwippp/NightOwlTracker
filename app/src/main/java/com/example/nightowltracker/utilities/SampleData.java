@@ -24,6 +24,8 @@ public class SampleData {
         as.add(new AcademicSessionEntity(1, "Term 1", Date.valueOf("2019-09-04"), Date.valueOf("2019-12-20")));
         as.add(new AcademicSessionEntity(2, "Term 2", Date.valueOf("2020-01-04"), Date.valueOf("2020-03-20")));
         as.add(new AcademicSessionEntity(3, "Term 3", Date.valueOf("2020-03-30"), Date.valueOf("2020-06-12")));
+        as.add(new AcademicSessionEntity(4, "Term 4", Date.valueOf("2020-07-01"), Date.valueOf("2020-08-30")));
+        as.add(new AcademicSessionEntity(5, "Term 5", Date.valueOf("2020-09-08"), Date.valueOf("2020-12-21")));
         return as;
     }
 

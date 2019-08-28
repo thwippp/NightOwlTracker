@@ -12,6 +12,7 @@ import java.util.List;
 @Dao
 public interface AcademicSessionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+        // updates existing value if already exists
     void insertAcademicSession(AcademicSessionEntity academicSessionEntity);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -20,13 +21,13 @@ public interface AcademicSessionDao {
     @Delete
     void deleteAcademicSession(AcademicSessionEntity academicSessionEntity);
 
-    @Query("SELECT * FROM academicsession WHERE sessionId = :id")
+    @Query("SELECT * FROM AcademicSession WHERE sessionId = :id")
     AcademicSessionEntity getAcademicSessionById(int id);
 
-    @Query("SELECT * FROM academicsession ORDER BY startDate DESC")
+    @Query("SELECT * FROM AcademicSession ORDER BY startDate DESC")
     LiveData<List<AcademicSessionEntity>> getAll();
 
-    @Query("DELETE FROM academicsession")
+    @Query("DELETE FROM AcademicSession")
     int deleteAll();
 
     @Query("SELECT COUNT(*) FROM AcademicSession")
