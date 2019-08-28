@@ -1,6 +1,8 @@
 package com.example.nightowltracker.activities;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.nightowltracker.R;
 import com.example.nightowltracker.database.AcademicSessionEntity;
+import com.example.nightowltracker.utilities.Constants;
 import com.example.nightowltracker.view_model.EditorViewModel;
 
 import static com.example.nightowltracker.utilities.Constants.ACADEMIC_SESSION_ID_KEY;
@@ -26,6 +29,7 @@ public class EditorActivity extends AppCompatActivity {
 
     private EditorViewModel mViewModel;
     private boolean mNewData;
+    private boolean mEditing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,10 @@ public class EditorActivity extends AppCompatActivity {
 
         mTextView = findViewById(R.id.item_text);
 
+        if (savedInstanceState != null) {
+            mEditing = savedInstanceState.getBoolean(Constants.EDITING_KEY);
+        }
+
         initViewModel();
 
     }
@@ -49,7 +57,7 @@ public class EditorActivity extends AppCompatActivity {
         mViewModel.mLiveAs.observe(this, new Observer<AcademicSessionEntity>() {
             @Override
             public void onChanged(AcademicSessionEntity academicSessionEntity) {
-                if (academicSessionEntity != null) {
+                if (academicSessionEntity != null && !mEditing) {
                     mTextView.setText(academicSessionEntity.getTitle());
                 }
             }
@@ -72,10 +80,23 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (!mNewData) {
+            // existing data. display new icon
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_editor, menu);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             saveAndReturn();
             return true;
+        } else if (item.getItemId() == R.id.action_delete) {
+            mViewModel.deleteData(); // view model knows which "note" you're working with
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -90,5 +111,12 @@ public class EditorActivity extends AppCompatActivity {
         // gets text from textview in layout
         mViewModel.saveData(mTextView.getText().toString());
         finish();
+    }
+
+    // Live Data destroys data when the orientation changes.
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(Constants.EDITING_KEY, true);
+        super.onSaveInstanceState(outState);
     }
 }

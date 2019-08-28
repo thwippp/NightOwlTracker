@@ -54,4 +54,8 @@ public class EditorViewModel extends AndroidViewModel {
         }
         mRepository.insertAcademicSession(academicSession);
     }
+
+    public void deleteData() {
+        mRepository.deleteData(mLiveAs.getValue());  // reference wrapped in live data
+    }
 }

@@ -64,4 +64,13 @@ public class AppRepository {
             }
         });
     }
+
+    public void deleteData(final AcademicSessionEntity academicSession) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.academicSessionDao().deleteAcademicSession(academicSession);  // referenced from within another object, make it final
+            }
+        });
+    }
 }

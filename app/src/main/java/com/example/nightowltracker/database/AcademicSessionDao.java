@@ -24,7 +24,7 @@ public interface AcademicSessionDao {
     @Query("SELECT * FROM AcademicSession WHERE sessionId = :id")
     AcademicSessionEntity getAcademicSessionById(int id);
 
-    @Query("SELECT * FROM AcademicSession ORDER BY startDate DESC")
+    @Query("SELECT * FROM AcademicSession ORDER BY sessionId")
     LiveData<List<AcademicSessionEntity>> getAll();
 
     @Query("DELETE FROM AcademicSession")
