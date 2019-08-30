@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import java.util.ArrayList;
 import java.util.Date;
 
-@Entity(tableName = "LineItemEntity")
+@Entity(tableName = "LineItem")
 
 public class LineItemEntity {
     @PrimaryKey(autoGenerate = true)

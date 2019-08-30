@@ -24,9 +24,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class AcademicSessionMainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "AcademicSessionMA";
 
     // vars
     private MainViewModel mViewModel;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_academic_session_main);
         //TEST
         mRecyclerView = findViewById(R.id.recycler_view);  // TODO Kinda works
         //TEST
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+                Intent intent = new Intent(AcademicSessionMainActivity.this, EditorActivity.class);
                 Context context = fab.getContext();
                 context.startActivity(intent);
             }
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
                         if (mAdapter == null) {
                             mAdapter = new RecyclerViewAdapter(asData,
-                                    MainActivity.this);
+                                    AcademicSessionMainActivity.this);
                             mRecyclerView.setAdapter(mAdapter);
                         } else {
                             mAdapter.notifyDataSetChanged();

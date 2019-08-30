@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "EnrollmentEntity")
+@Entity(tableName = "Enrollment")
 
 public class EnrollmentEntity {
     @PrimaryKey(autoGenerate = true)

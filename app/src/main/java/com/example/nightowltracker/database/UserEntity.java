@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "UserEntity")
+@Entity(tableName = "User")
 
 public class UserEntity {
     @PrimaryKey(autoGenerate = true)

@@ -11,20 +11,19 @@ import java.util.List;
 
 @Dao
 public interface AcademicSessionDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-        // updates existing value if already exists
-    void insertAcademicSession(AcademicSessionEntity academicSessionEntity);
+    @Insert(onConflict = OnConflictStrategy.REPLACE) // updates existing value if already exists
+    void insertAcademicSession(AcademicSessionEntity academicSession);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAllAcademicSessions(List<AcademicSessionEntity> academicSession);
 
     @Delete
-    void deleteAcademicSession(AcademicSessionEntity academicSessionEntity);
+    void deleteAcademicSession(AcademicSessionEntity academicSession);
 
     @Query("SELECT * FROM AcademicSession WHERE sessionId = :id")
     AcademicSessionEntity getAcademicSessionById(int id);
 
-    @Query("SELECT * FROM AcademicSession ORDER BY sessionId")
+    @Query("SELECT * FROM AcademicSession ORDER BY title")
     LiveData<List<AcademicSessionEntity>> getAll();
 
     @Query("DELETE FROM AcademicSession")
