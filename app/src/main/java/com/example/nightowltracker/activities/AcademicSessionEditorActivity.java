@@ -14,37 +14,39 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.nightowltracker.R;
 import com.example.nightowltracker.database.AcademicSessionEntity;
 import com.example.nightowltracker.utilities.Constants;
-import com.example.nightowltracker.view_model.EditorViewModel;
+import com.example.nightowltracker.view_model.AcademicSessionViewModel;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import static com.example.nightowltracker.utilities.Constants.ACADEMIC_SESSION_ID_KEY;
 
-public class EditorActivity extends AppCompatActivity {
+public class AcademicSessionEditorActivity extends AppCompatActivity {
 
-    // Butterknife
-    /*
-    @BindView (R.id.item_text)
-    TextView mTextView;
-     */
-    private TextView mTextView;// title
-//    private TextView mStartDate;
-//    private TextView mEndDate;
+    private static final String TAG = "ASEditorActivity";
 
-    private EditorViewModel mViewModel;
+    private TextView mTitle;
+    private TextView mStartDate;
+    private TextView mEndDate;
+
+    private AcademicSessionViewModel mViewModel;
     private boolean mNewData;
     private boolean mEditing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor);
+        setContentView(R.layout.activity_academic_session_editor);  // layout file
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_check_white_36dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTextView = findViewById(R.id.class_title);
-//        mStartDate = findViewById(R.id.start_date);
-//        mEndDate = findViewById(R.id.end_date);
+        mTitle = findViewById(R.id.as_title);
+        mStartDate = findViewById(R.id.as_start_date);
+        mEndDate = findViewById(R.id.as_end_date);
 
         if (savedInstanceState != null) {
             mEditing = savedInstanceState.getBoolean(Constants.EDITING_KEY);
@@ -56,29 +58,37 @@ public class EditorActivity extends AppCompatActivity {
 
     private void initViewModel() {
         mViewModel = ViewModelProviders.of(this)
-                .get(EditorViewModel.class);
+                .get(AcademicSessionViewModel.class);
 
         mViewModel.mLiveAs.observe(this, new Observer<AcademicSessionEntity>() {
             @Override
             public void onChanged(AcademicSessionEntity academicSessionEntity) {
                 if (academicSessionEntity != null && !mEditing) {
-                    mTextView.setText(academicSessionEntity.getTitle());
-//                    mStartDate.setText(academicSessionEntity.getStartDate().toString());
+
+                    // Sets format for date
+                    SimpleDateFormat sfsDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+                    SimpleDateFormat sfeDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+
+                    // Sets format for date from Db
+                    String sStartDate = sfsDate.format(academicSessionEntity.getStartDate());
+                    String sEndDate = sfeDate.format(academicSessionEntity.getEndDate());
+
+                    // Sets text on TextView, formatted correctly
+                    mTitle.setText(academicSessionEntity.getTitle());
+                    mStartDate.setText(sStartDate);
+                    mEndDate.setText(sEndDate);
                 }
             }
         });
 
 
-        // TODO Look here!
-        // The bundle is listing "Data" rather than "AcademicSession" or "note".  However, you may just choose to do "data"
-        // or pass in the title of the type of object from before (check out the else clause)
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
             // brand new Data
-            setTitle("New Data");
+            setTitle("New Term...");
             mNewData = true;
         } else {
-            setTitle("Edit Data");
+            setTitle("Edit Term...");
             int sessionId = extras.getInt(ACADEMIC_SESSION_ID_KEY);
             mViewModel.loadData(sessionId);
         }
@@ -114,7 +124,30 @@ public class EditorActivity extends AppCompatActivity {
     private void saveAndReturn() {
         // makes call to view model
         // gets text from textview in layout
-        mViewModel.saveData(mTextView.getText().toString());
+
+        // Sets format for dates
+        SimpleDateFormat sfsDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        SimpleDateFormat sfeDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+
+        // Initializes dates with new date
+        Date startDate = new Date();
+        Date endDate = new Date();
+
+        // Parses dates that user typed in according to format
+        try {
+            startDate = sfsDate.parse(mStartDate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            endDate = sfeDate.parse(mEndDate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // Saves data to Db in given format
+        mViewModel.saveData(mTitle.getText().toString(), startDate, endDate);
         finish();
     }
 

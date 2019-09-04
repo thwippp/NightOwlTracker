@@ -11,28 +11,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <!--<activity android:name=".activities.AcademicSessionMainActivity">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value="com.example.nightowltracker.activities.MainActivity" />-->
-        <!--</activity>-->
         <activity
-            android:name=".activities.EditorActivity"
-            android:label="@string/title_activity_editor"
-        android:parentActivityName=".activities.AcademicSessionMainActivity"
+            android:name=".activities.AcademicSessionEditorActivity"
+            android:label="@string/title_activity_academic_session_editor"
+            android:parentActivityName=".activities.AcademicSessionMainActivity"
             android:theme="@style/AppTheme.NoActionBar">
-        <!--android:parentActivityName=".activities.MainActivity"-->
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.AcademicSessionMainActivity"/>
-                <!--android:value="com.example.nightowltracker.activities.MainActivity" -->
+                android:value="com.example.nightowltracker.activities.AcademicSessionMainActivity" />
         </activity>
-        <!--<activity android:name=".activities.MainActivity">-->
-        <activity android:name=".activities.AcademicSessionMainActivity">
-
+        <activity android:name=".activities.AcademicSessionMainActivity"></activity>
+        <activity
+            android:name=".activities.ClassEditorActivity"
+            android:label="@string/title_activity_class_editor"
+            android:parentActivityName=".activities.ClassMainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.nightowltracker.activities.ClassMainActivity" />
+        </activity>
+        <activity android:name=".activities.ClassMainActivity"></activity>
+        <!--<activity-->
+        <!--android:name=".activities.EditorActivity"-->
+        <!--android:label="@string/title_activity_editor"-->
+        <!--android:parentActivityName=".activities.MainActivity"-->
+        <!--android:theme="@style/AppTheme.NoActionBar">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.PARENT_ACTIVITY"-->
+        <!--android:value="com.example.nightowltracker.activities.MainActivity" />-->
+        <!--</activity>-->
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

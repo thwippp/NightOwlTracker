@@ -14,12 +14,18 @@ public class AppRepository {
     private static AppRepository ourInstance;
 
     public LiveData<List<AcademicSessionEntity>> mAcademicSession;
+    public LiveData<List<ClassEntity>> mClass;
+
+
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();  // don't run multiple DB operations at the same time!  This queues them.
 
+    ///////////////////////////////////////////////////
+    // All Classes
     private AppRepository(Context context) {
         mDb = AppDatabase.getInstance(context);
         mAcademicSession = getAllAcademicSessions();
+        mClass = getAllClasses();
     }
 
     public static AppRepository getInstance(Context context) {
@@ -29,6 +35,8 @@ public class AppRepository {
         return ourInstance;
     }
 
+    ///////////////////////////////////////////////////
+    // Adds sample data for AS
     public void addSampleData() {
         executor.execute(new Runnable() {
             @Override
@@ -39,11 +47,13 @@ public class AppRepository {
 
     }
 
+    ///////////////////////////////////////////////////
+    // Academic Session
     private LiveData<List<AcademicSessionEntity>> getAllAcademicSessions() {
         return mDb.academicSessionDao().getAll();
     }
 
-    public void deleteAllData() {
+    public void deleteAllASData() {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -65,11 +75,48 @@ public class AppRepository {
         });
     }
 
-    public void deleteData(final AcademicSessionEntity academicSession) {
+    public void deleteAcademicSession(final AcademicSessionEntity academicSession) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 mDb.academicSessionDao().deleteAcademicSession(academicSession);  // referenced from within another object, make it final
+            }
+        });
+    }
+
+    ///////////////////////////////////////////////////
+    // Class
+    private LiveData<List<ClassEntity>> getAllClasses() {
+        return mDb.classDao().getAll();
+    }
+
+    public void deleteAllClassData() {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.classDao().deleteAll();
+            }
+        });
+    }
+
+    public ClassEntity getClassById(int classId) {
+        return mDb.classDao().getClassById(classId);
+    }
+
+    public void insertClass(final ClassEntity classEntity) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.classDao().insertClass(classEntity);
+            }
+        });
+    }
+
+    public void deleteClass(final ClassEntity classEntity) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.classDao().deleteClass(classEntity);
             }
         });
     }

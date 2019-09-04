@@ -16,41 +16,35 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightowltracker.R;
-import com.example.nightowltracker.database.AcademicSessionEntity;
-import com.example.nightowltracker.ui.AcademicSessionRecyclerViewAdapter;
-import com.example.nightowltracker.view_model.AcademicSessionViewModel;
+import com.example.nightowltracker.database.ClassEntity;
+import com.example.nightowltracker.ui.ClassRecyclerViewAdapter;
+import com.example.nightowltracker.view_model.ClassViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AcademicSessionMainActivity extends AppCompatActivity {
+public class ClassMainActivity extends AppCompatActivity {
 
-    private static final String TAG = "AcademicSessionMA";
+    private static final String TAG = "ClassMA";
 
     // vars
-    private AcademicSessionViewModel mViewModel;
-    private List<AcademicSessionEntity> asData = new ArrayList<>();
-    private AcademicSessionRecyclerViewAdapter mAdapter;
-
-    // Butterknife
-    // @Bind(R.id.recycler_view);
-    // RecyclerView mRecyclerView;
-    private RecyclerView mRecyclerView; // = findViewById(R.id.recycler_view);  // TODO figure out how to bind this without butterknife
+    private ClassViewModel mViewModel;
+    private List<ClassEntity> cData = new ArrayList<>();
+    private ClassRecyclerViewAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_academic_session_main);
-        //TEST
-        mRecyclerView = findViewById(R.id.recycler_view);  // TODO Kinda works
-        //TEST
+        setContentView(R.layout.activity_class_main);
+        mRecyclerView = findViewById(R.id.recycler_view);  //TODO adapter per class?
 
         final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AcademicSessionMainActivity.this, AcademicSessionEditorActivity.class);
+                Intent intent = new Intent(ClassMainActivity.this, ClassEditorActivity.class);
                 Context context = fab.getContext();
                 context.startActivity(intent);
             }
@@ -66,16 +60,16 @@ public class AcademicSessionMainActivity extends AppCompatActivity {
 
     private void initViewModel() {
 
-        final Observer<List<AcademicSessionEntity>> academicSessionObserver =
-                new Observer<List<AcademicSessionEntity>>() {
+        final Observer<List<ClassEntity>> classObserver =
+                new Observer<List<ClassEntity>>() {
                     @Override
-                    public void onChanged(List<AcademicSessionEntity> academicSessionEntities) {
-                        asData.clear();
-                        asData.addAll(academicSessionEntities);  // keeps a copy for the lifetime
+                    public void onChanged(List<ClassEntity> classEntities) {
+                        cData.clear();
+                        cData.addAll(classEntities);  // keeps a copy for the lifetime
 
                         if (mAdapter == null) {
-                            mAdapter = new AcademicSessionRecyclerViewAdapter(asData,
-                                    AcademicSessionMainActivity.this);
+                            mAdapter = new ClassRecyclerViewAdapter(cData,
+                                    ClassMainActivity.this);
                             mRecyclerView.setAdapter(mAdapter);
                         } else {
                             mAdapter.notifyDataSetChanged();
@@ -84,16 +78,16 @@ public class AcademicSessionMainActivity extends AppCompatActivity {
                 };
 
         mViewModel = ViewModelProviders.of(this)
-                .get(AcademicSessionViewModel.class);
-        mViewModel.mAcademicSession.observe(this, academicSessionObserver);  // subscribed to the data
+                .get(ClassViewModel.class);
+        mViewModel.mClass.observe(this, classObserver);  // subscribed to the data
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init RecyclerView");
         mRecyclerView = findViewById(R.id.recycler_view);  // todo
         mRecyclerView.setHasFixedSize(true);  // Each item is the same height. Avoids re-measurements.
@@ -120,29 +114,12 @@ public class AcademicSessionMainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_add_sample_data) {
-            addSampleData();
-            return true;
-        } else if (id == R.id.action_delete_all) {
-            deleteAllData();
-            return true;
-        } else if (id == R.id.action_go_to_main_activity) {
-            Intent intent = new Intent(AcademicSessionMainActivity.this, MainActivity.class);
+        if (id == R.id.action_go_to_main_activity) {
+            Intent intent = new Intent(ClassMainActivity.this, MainActivity.class);
             Context context = this;
             context.startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-
-    private void deleteAllData() {
-        mViewModel.deleteAllData();
-    }
-
-    private void addSampleData() {
-        mViewModel.addSampleData();
-    }
-
 }

@@ -28,6 +28,6 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void deleteAllData() {
-        mRepository.deleteAllData();
+        mRepository.deleteAllASData();
     }
 }

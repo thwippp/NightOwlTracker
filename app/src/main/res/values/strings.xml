@@ -3,7 +3,7 @@
     <string name="image_for_image_view">image for image view</string>
     <string name="title_activity_editor">Editor Activity</string>
     <string name="action_settings">Settings</string>
-    <string name="enter_value">Enter value...</string>
+    <string name="enter_value">Term Title...</string>
     <string name="action_add_sample_data">Add Sample Data</string>
     <string name="delete_all">Delete All Data</string>
     <string name="delete">Delete</string>
@@ -96,6 +96,18 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="home">Home</string>
+    <string name="academic_sessions">Terms</string>
+    <string name="classes">Classes</string>
+    <string name="users">Users</string>
+    <string name="assessments_and_notes">Assessments</string>
+    <string name="start_date">Start Date...</string>
+    <string name="end_date">End Date...</string>
+    <string name="title_activity_academic_session_editor">AcademicSessionEditorActivity</string>
+    <string name="label_start_date">Start Date</string>
+    <string name="label_end_date">End Date</string>
+    <string name="label_title">Title</string>
+    <string name="title_activity_class_editor">Classes</string>
 
 
 </resources>

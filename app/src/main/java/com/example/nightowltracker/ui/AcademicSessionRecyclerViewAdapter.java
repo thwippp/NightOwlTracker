@@ -12,16 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightowltracker.R;
-import com.example.nightowltracker.activities.EditorActivity;
+import com.example.nightowltracker.activities.AcademicSessionEditorActivity;
 import com.example.nightowltracker.database.AcademicSessionEntity;
 import com.example.nightowltracker.utilities.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class AcademicSessionRecyclerViewAdapter extends RecyclerView.Adapter<AcademicSessionRecyclerViewAdapter.ViewHolder> {
 
-    private static final String TAG = "RecyclerViewAdapter";
+    private static final String TAG = "ASRecyclerViewAdapter";
 
     private final List<AcademicSessionEntity> mAcademicSession;
     private final Context mContext;
@@ -29,7 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     // TODO create a generic adapter then cast it to the type of entity?
     // TODO or make all of your data types into one "note" type so the handler can handle all of them?
-    public RecyclerViewAdapter(List<AcademicSessionEntity> mAcademicSession, Context mContext) {
+    public AcademicSessionRecyclerViewAdapter(List<AcademicSessionEntity> mAcademicSession, Context mContext) {
         this.mAcademicSession = mAcademicSession;
         this.mContext = mContext;
     }
@@ -52,7 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, EditorActivity.class);
+                Intent intent = new Intent(mContext, AcademicSessionEditorActivity.class);
                 intent.putExtra(Constants.ACADEMIC_SESSION_ID_KEY, academicSession.getSessionId());
                 mContext.startActivity(intent);
             }
@@ -73,7 +73,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.recycler_view_textView);
-            mFab = itemView.findViewById(R.id.fab);
+            mFab = itemView.findViewById(R.id.recycler_view_fab);
         }
     }
 }

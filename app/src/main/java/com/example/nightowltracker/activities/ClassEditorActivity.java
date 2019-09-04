@@ -12,39 +12,38 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.nightowltracker.R;
-import com.example.nightowltracker.database.AcademicSessionEntity;
+import com.example.nightowltracker.database.ClassEntity;
 import com.example.nightowltracker.utilities.Constants;
-import com.example.nightowltracker.view_model.EditorViewModel;
+import com.example.nightowltracker.view_model.ClassViewModel;
 
-import static com.example.nightowltracker.utilities.Constants.ACADEMIC_SESSION_ID_KEY;
+import static com.example.nightowltracker.utilities.Constants.CLASS_CLASS_ID_KEY;
 
-public class EditorActivity extends AppCompatActivity {
+public class ClassEditorActivity extends AppCompatActivity {
 
-    // Butterknife
-    /*
-    @BindView (R.id.item_text)
-    TextView mTextView;
-     */
-    private TextView mTextView;// title
-//    private TextView mStartDate;
-//    private TextView mEndDate;
+    private static final String TAG = "CEditorActivity";
 
-    private EditorViewModel mViewModel;
+    private TextView mTitle;
+    private TextView mClassCode;
+    private TextView mStatus;
+    private TextView mSessionId;
+
+    private ClassViewModel mViewModel;
     private boolean mNewData;
     private boolean mEditing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor);
+        setContentView(R.layout.activity_class_editor);  // layout file
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_check_white_36dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTextView = findViewById(R.id.class_title);
-//        mStartDate = findViewById(R.id.start_date);
-//        mEndDate = findViewById(R.id.end_date);
+        mTitle = findViewById(R.id.class_title);
+        mClassCode = findViewById(R.id.class_code);
+        mStatus = findViewById(R.id.class_status);
+        mSessionId = findViewById(R.id.class_session_id);
 
         if (savedInstanceState != null) {
             mEditing = savedInstanceState.getBoolean(Constants.EDITING_KEY);
@@ -56,31 +55,35 @@ public class EditorActivity extends AppCompatActivity {
 
     private void initViewModel() {
         mViewModel = ViewModelProviders.of(this)
-                .get(EditorViewModel.class);
+                .get(ClassViewModel.class);
 
-        mViewModel.mLiveAs.observe(this, new Observer<AcademicSessionEntity>() {
+        mViewModel.mLiveC.observe(this, new Observer<ClassEntity>() {
             @Override
-            public void onChanged(AcademicSessionEntity academicSessionEntity) {
-                if (academicSessionEntity != null && !mEditing) {
-                    mTextView.setText(academicSessionEntity.getTitle());
-//                    mStartDate.setText(academicSessionEntity.getStartDate().toString());
+            public void onChanged(ClassEntity classEntity) {
+                if (classEntity != null && !mEditing) {
+
+                    String ssid = String.valueOf(classEntity.getSessionId());
+
+                    // Sets text on TextView
+                    mTitle.setText(classEntity.getTitle());
+                    mClassCode.setText(classEntity.getClassCode());
+                    mStatus.setText(classEntity.getStatus());
+                    mSessionId.setText(ssid);
                 }
             }
         });
 
 
-        // TODO Look here!
-        // The bundle is listing "Data" rather than "AcademicSession" or "note".  However, you may just choose to do "data"
-        // or pass in the title of the type of object from before (check out the else clause)
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
             // brand new Data
-            setTitle("New Data");
+            setTitle("New Class...");
             mNewData = true;
         } else {
-            setTitle("Edit Data");
-            int sessionId = extras.getInt(ACADEMIC_SESSION_ID_KEY);
-            mViewModel.loadData(sessionId);
+            setTitle("Edit Class...");
+            int classId = extras.getInt(CLASS_CLASS_ID_KEY);
+            System.out.println("ClassId: " + classId);  //
+            mViewModel.loadData(classId);
         }
     }
 
@@ -114,7 +117,17 @@ public class EditorActivity extends AppCompatActivity {
     private void saveAndReturn() {
         // makes call to view model
         // gets text from textview in layout
-        mViewModel.saveData(mTextView.getText().toString());
+        // Saves data to Db in given format
+
+        // Casts sessionId as int
+        int sid = Integer.parseInt(mSessionId.getText().toString());
+        System.out.println("saving int to Db: " + sid);
+        // Saves data to Db in the correct format
+        mViewModel.saveData(
+                mTitle.getText().toString(),
+                mClassCode.getText().toString(),
+                mStatus.getText().toString(),
+                sid);
         finish();
     }
 

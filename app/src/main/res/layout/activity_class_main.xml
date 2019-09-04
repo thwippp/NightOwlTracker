@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AcademicSessionMainActivity">
+    tools:context=".activities.ClassMainActivity">
 
     <include
         android:id="@+id/constraint_layout"
@@ -19,6 +19,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/accent"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_pencil_box_white_48dp" />

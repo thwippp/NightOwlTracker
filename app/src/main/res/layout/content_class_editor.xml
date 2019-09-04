@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_class_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textPersonName"
+            android:text="Class Title"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/class_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/text_margin"
+            android:hint=""
+            android:inputType="textMultiLine|textCapSentences"
+            android:selectAllOnFocus="true"
+            android:textIsSelectable="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_class_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textPersonName"
+            android:text="Class Code"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/class_code"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:hint=""
+            android:inputType="textMultiLine|textCapSentences"
+            android:selectAllOnFocus="true"
+            android:textIsSelectable="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_class_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textPersonName"
+            android:text="Status"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/class_status"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:hint=""
+            android:inputType="textMultiLine|textCapSentences"
+            android:selectAllOnFocus="true"
+            android:textIsSelectable="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_class_session_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textPersonName"
+            android:text="Term"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/class_session_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:hint=""
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:textIsSelectable="true" />
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
