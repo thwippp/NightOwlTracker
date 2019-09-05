@@ -20,13 +20,13 @@ public interface LineItemDao {
     @Delete
     void deleteLineItem(LineItemEntity lineItem);
 
-    @Query("SELECT * FROM LineItem WHERE lineItemId = :id")
+    @Query("SELECT * FROM lineitem WHERE lineItemId = :id")
     LineItemEntity getLineItemById(int id);
 
     @Query("SELECT * FROM lineitem ORDER BY lineItemId")
     LiveData<List<LineItemEntity>> getAll();
 
-    @Query("DELETE FROM LineItem")
+    @Query("DELETE FROM lineitem")
     int deleteAll();
 
     @Query("SELECT COUNT(*) FROM lineitem")

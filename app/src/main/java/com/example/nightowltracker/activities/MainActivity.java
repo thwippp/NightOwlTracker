@@ -46,6 +46,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        liiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LineItemMainActivity.class);
+                Context context = liiv.getContext();
+                context.startActivity(intent);
+            }
+        });
+
+//        uiv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, UserMainActivity.class);
+//                Context context = uiv.getContext();
+//                context.startActivity(intent);
+//            }
+//        });
+
     }
 
 

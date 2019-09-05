@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.nightowltracker">
 
+    <!--ACADEMIC SESSION-->
     <application
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +21,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nightowltracker.activities.AcademicSessionMainActivity" />
         </activity>
+
         <activity android:name=".activities.AcademicSessionMainActivity"></activity>
+
+
+        <!--CLASS-->
         <activity
             android:name=".activities.ClassEditorActivity"
             android:label="@string/title_activity_class_editor"
@@ -31,15 +36,21 @@
                 android:value="com.example.nightowltracker.activities.ClassMainActivity" />
         </activity>
         <activity android:name=".activities.ClassMainActivity"></activity>
-        <!--<activity-->
-        <!--android:name=".activities.EditorActivity"-->
-        <!--android:label="@string/title_activity_editor"-->
-        <!--android:parentActivityName=".activities.MainActivity"-->
-        <!--android:theme="@style/AppTheme.NoActionBar">-->
-        <!--<meta-data-->
-        <!--android:name="android.support.PARENT_ACTIVITY"-->
-        <!--android:value="com.example.nightowltracker.activities.MainActivity" />-->
-        <!--</activity>-->
+
+
+        <!--LINE ITEM-->
+        <activity
+            android:name=".activities.LineItemEditorActivity"
+            android:label="Line Item Editor"
+            android:parentActivityName=".activities.LineItemMainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.nightowltracker.activities.LineItemMainActivity" />
+        </activity>
+        <activity android:name=".activities.LineItemMainActivity"></activity>
+
+        <!--MAIN ACTIVITY-->
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

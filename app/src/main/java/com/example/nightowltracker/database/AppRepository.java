@@ -15,6 +15,7 @@ public class AppRepository {
 
     public LiveData<List<AcademicSessionEntity>> mAcademicSession;
     public LiveData<List<ClassEntity>> mClass;
+    public LiveData<List<LineItemEntity>> mLineItem;
 
 
     private AppDatabase mDb;
@@ -26,6 +27,7 @@ public class AppRepository {
         mDb = AppDatabase.getInstance(context);
         mAcademicSession = getAllAcademicSessions();
         mClass = getAllClasses();
+        mLineItem = getAllLineItems();
     }
 
     public static AppRepository getInstance(Context context) {
@@ -120,4 +122,46 @@ public class AppRepository {
             }
         });
     }
+
+    ///////////////////////////////////////////////////
+    // Line Item
+    private LiveData<List<LineItemEntity>> getAllLineItems() {
+        return mDb.lineItemDao().getAll();
+    }
+
+    public void deleteAllLineItemData() {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.lineItemDao().deleteAll();
+            }
+        });
+    }
+
+    public LineItemEntity getLineItemById(int lineItemId) {
+        return mDb.lineItemDao().getLineItemById(lineItemId);
+    }
+
+    public void insertLineItem(final LineItemEntity lineItemEntity) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.lineItemDao().insertLineItem(lineItemEntity);
+            }
+        });
+    }
+
+    public void deleteLineItem(final LineItemEntity lineItemEntity) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.lineItemDao().deleteLineItem(lineItemEntity);
+            }
+        });
+    }
+
+
+
+
+
 }

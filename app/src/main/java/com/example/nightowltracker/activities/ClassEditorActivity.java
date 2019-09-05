@@ -16,7 +16,7 @@ import com.example.nightowltracker.database.ClassEntity;
 import com.example.nightowltracker.utilities.Constants;
 import com.example.nightowltracker.view_model.ClassViewModel;
 
-import static com.example.nightowltracker.utilities.Constants.CLASS_CLASS_ID_KEY;
+import static com.example.nightowltracker.utilities.Constants.CLASS_ID_KEY;
 
 public class ClassEditorActivity extends AppCompatActivity {
 
@@ -81,7 +81,7 @@ public class ClassEditorActivity extends AppCompatActivity {
             mNewData = true;
         } else {
             setTitle("Edit Class...");
-            int classId = extras.getInt(CLASS_CLASS_ID_KEY);
+            int classId = extras.getInt(CLASS_ID_KEY);
             System.out.println("ClassId: " + classId);  //
             mViewModel.loadData(classId);
         }

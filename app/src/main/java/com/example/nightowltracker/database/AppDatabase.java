@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-@Database(entities = {AcademicSessionEntity.class, ClassEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {AcademicSessionEntity.class, ClassEntity.class, LineItemEntity.class}, version = 2, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "AppDatabase.db";  // was AppDatabase.db
@@ -29,4 +29,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract AcademicSessionDao academicSessionDao();
 
     public abstract ClassDao classDao();
+
+    public abstract LineItemDao lineItemDao();
 }

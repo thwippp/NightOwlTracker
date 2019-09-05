@@ -12,22 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightowltracker.R;
-import com.example.nightowltracker.activities.ClassEditorActivity;
-import com.example.nightowltracker.database.ClassEntity;
+import com.example.nightowltracker.activities.LineItemEditorActivity;
+import com.example.nightowltracker.database.LineItemEntity;
 import com.example.nightowltracker.utilities.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecyclerViewAdapter.ViewHolder> {
+public class LineItemRecyclerViewAdapter extends RecyclerView.Adapter<LineItemRecyclerViewAdapter.ViewHolder> {
 
-    private static final String TAG = "CRecyclerViewAdapter";
+    private static final String TAG = "LIRecyclerViewAdapter";
 
-    private final List<ClassEntity> mClass;
+    private final List<LineItemEntity> mLineItem;
     private final Context mContext;
 
-    public ClassRecyclerViewAdapter(List<ClassEntity> mClass, Context mContext) {
-        this.mClass = mClass;
+    public LineItemRecyclerViewAdapter(List<LineItemEntity> mLineItem, Context mContext) {
+        this.mLineItem = mLineItem;
         this.mContext = mContext;
     }
 
@@ -43,14 +43,14 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        final ClassEntity aClass = mClass.get(position);
-        holder.mTextView.setText(aClass.getTitle());
+        final LineItemEntity LineItem = mLineItem.get(position);
+        holder.mTextView.setText(LineItem.getTitle());
 
         holder.mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, ClassEditorActivity.class);
-                intent.putExtra(Constants.CLASS_ID_KEY, aClass.getClassId());
+                Intent intent = new Intent(mContext, LineItemEditorActivity.class);
+                intent.putExtra(Constants.LINE_ITEM_ID, LineItem.getLineItemId());
                 mContext.startActivity(intent);
             }
         });
@@ -58,7 +58,7 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
 
     @Override
     public int getItemCount() {
-        return mClass.size();
+        return mLineItem.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

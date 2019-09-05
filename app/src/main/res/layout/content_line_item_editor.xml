@@ -25,7 +25,7 @@
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/label_class_title"
+            android:id="@+id/label_line_item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
@@ -33,11 +33,11 @@
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:inputType="textPersonName"
-            android:text="Class Title"
+            android:text="@string/label_title"
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/class_title"
+            android:id="@+id/line_item_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/text_margin"
@@ -47,7 +47,7 @@
             android:textIsSelectable="true" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/label_class_code"
+            android:id="@+id/label_line_item_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
@@ -55,34 +55,11 @@
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:inputType="textPersonName"
-            android:text="Class Code"
+            android:text="Description"
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/class_code"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/text_margin"
-            android:ems="10"
-            android:hint=""
-            android:inputType="textMultiLine|textCapSentences"
-            android:selectAllOnFocus="true"
-            android:textIsSelectable="true" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/label_class_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:ems="10"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:inputType="textPersonName"
-            android:text="Status"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/class_status"
+            android:id="@+id/line_item_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/text_margin"
@@ -93,7 +70,7 @@
             android:textIsSelectable="true" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/label_class_session_id"
+            android:id="@+id/label_line_item_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
@@ -101,11 +78,80 @@
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:inputType="textPersonName"
-            android:text="Session Id"
+            android:text="Category"
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/class_session_id"
+            android:id="@+id/line_item_category"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:hint=""
+            android:inputType="textMultiLine|textCapSentences"
+            android:selectAllOnFocus="true"
+            android:textIsSelectable="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_line_item_assign_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textPersonName"
+            android:text="Assign Date"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/line_item_assign_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:hint=""
+            android:inputType="date"
+            android:selectAllOnFocus="true"
+            android:textIsSelectable="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_line_item_due_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textPersonName"
+            android:text="Due Date"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/line_item_due_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:hint=""
+            android:inputType="date"
+            android:selectAllOnFocus="true"
+            android:textIsSelectable="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_line_item_class_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textPersonName"
+            android:text="Class Id"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/line_item_class_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/text_margin"
