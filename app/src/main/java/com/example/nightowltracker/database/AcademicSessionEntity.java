@@ -1,6 +1,8 @@
 package com.example.nightowltracker.database;
 
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -11,8 +13,12 @@ import java.util.Date;
 @Entity(tableName = "AcademicSession")
 
 public class AcademicSessionEntity {
+    @NonNull
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "sessionId")
     private int sessionId;
+
+    @ColumnInfo(name = "title")
     private String title;
     private Date startDate;
     private Date endDate;
