@@ -9,21 +9,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightowltracker.R;
-import com.example.nightowltracker.database.AcademicSessionEntity;
-import com.example.nightowltracker.database.AppDatabase;
 import com.example.nightowltracker.database.ClassEntity;
-import com.example.nightowltracker.ui.AcademicSessionRecyclerViewAdapter;
 import com.example.nightowltracker.utilities.Constants;
-import com.example.nightowltracker.view_model.AcademicSessionViewModel;
 import com.example.nightowltracker.view_model.ClassViewModel;
 
 import java.util.ArrayList;
@@ -38,19 +33,24 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
     private TextView mTitle;
     private TextView mClassCode;
     private TextView mStatus;
-    private TextView mSessionId;
+//    private TextView mSessionId;
 
-    List<Integer> asSessionId = new ArrayList<>();
-    List<String> asTitle = new ArrayList<>();
+    //    public MutableLiveData<List<AcademicSessionEntity>> mSpinnerData;
+    public static List<Integer> asSessionId = new ArrayList<>();
+    public static List<String> asTitle = new ArrayList<>();
     private Spinner spinner;
     private int asSessionIdItem;
-    // AS
-    private List<AcademicSessionEntity> asData = new ArrayList<>();
-    private LiveData<List<AcademicSessionEntity>> liveAsData;
-    private RecyclerView asRecyclerView;
-    // AS
-    private AcademicSessionRecyclerViewAdapter asAdapter;
-    private AcademicSessionViewModel asViewModel;
+    private String asTitleItem;
+//    // AS
+//    private AcademicSessionViewModel getAsViewModel;
+//    private List asDataList;
+//    private List<AcademicSessionEntity> asData = new ArrayList<>();
+//    private LiveData<List<AcademicSessionEntity>> liveAsData;
+//    private RecyclerView asRecyclerView;
+//    // AS
+//    private AcademicSessionRecyclerViewAdapter asAdapter;
+//
+//    private AcademicSessionViewModel asViewModel;
 
     private ClassViewModel mViewModel;
     private boolean mNewData;
@@ -65,6 +65,9 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_check_white_36dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Adds AS view model
+//        asViewModel = ViewModelProviders.of(this).get(AcademicSessionViewModel.class);
+
         mTitle = findViewById(R.id.class_title);
         mClassCode = findViewById(R.id.class_code);
         mStatus = findViewById(R.id.class_status);
@@ -73,43 +76,15 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
         // Spinner element
         spinner = findViewById(R.id.class_session_id);
 
+        // Spinner click listener
+        spinner.setOnItemSelectedListener(this);
+
         if (savedInstanceState != null) {
             mEditing = savedInstanceState.getBoolean(Constants.EDITING_KEY);
         }
 
-        // Spinner click listener
-        spinner.setOnItemSelectedListener(this);
-
-        // Initializes the live data from the academic session
-        initAS();
-
-//        // TODO -- getting a NULL object reference when looking to the liveAsData...
-        liveAsData = AppDatabase.getInstance(this).academicSessionDao().getAll();
-        System.out.println("Live Data: " + liveAsData.getValue());
-
-//        asTitle.add(liveAsData.getValue().get(0).getTitle());
-
-        //Spinner Drop down from aS
-//        asTitle.clear();
-//        int counter = 0;
-//        while(counter < liveAsData.getValue().size()) {
-//            asTitle.add(liveAsData.getValue().get(counter).getTitle());
-//            counter ++;
-//        }
-
-        // Spinner Drop down elements (secret)
-        asSessionId.add(1);  // add AS
-        asSessionId.add(2);
-
-        // Spinner Drop down elements
-        asTitle.add("Title A");
-        asTitle.add("Title B");
-
-//        asTitle.add(asData.get(0).getTitle());
-
-
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, asTitle);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, asTitle);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -118,47 +93,42 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
         spinner.setAdapter(dataAdapter);
 
         initViewModel();
-
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
-        String asTitleItem = parent.getItemAtPosition(position).toString();
+
+        asTitleItem = parent.getItemAtPosition(position).toString();
+        spinner.setSelection(asTitle.indexOf(asTitleItem));
         asSessionIdItem = asSessionId.get(position);
 
         // Showing selected spinner item
-//        Toast.makeText(parent.getContext(), "Title: " + asTitleItem + ".\nSessionId: " + asSessionIdItem, Toast.LENGTH_LONG).show();
+        Toast.makeText(parent.getContext(), "Title: " + asTitleItem + ".\nSessionId: " + asSessionIdItem, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
     }
-
-    private void initAS() {
-        final Observer<List<AcademicSessionEntity>> academicSessionObserver =
-                new Observer<List<AcademicSessionEntity>>() {
-                    @Override
-                    public void onChanged(List<AcademicSessionEntity> academicSessionEntities) {
-                        asData.clear();
-                        asData.addAll(academicSessionEntities);
-
-                        if (asAdapter == null) {
-                            asAdapter = new AcademicSessionRecyclerViewAdapter(asData,
-                                    ClassEditorActivity.this);
-//                            asRecyclerView.setAdapter(asAdapter);
-                        } else {
-                            asAdapter.notifyDataSetChanged();
-                        }
-                    }
-                };
-
-        asViewModel = ViewModelProviders.of(this)
-                .get(AcademicSessionViewModel.class);
-        asViewModel.mAcademicSession.observe(this, academicSessionObserver);  // subscribed to the data
-
-    }
+// MOVED TO CLASSMAINACTIVTY
+//    public void observeAS(){
+//        asViewModel.mAcademicSession.observe(this, new Observer<List<AcademicSessionEntity>>() {
+//            @Override
+//            public void onChanged(List<AcademicSessionEntity> academicSessionEntities) {
+//                // When a change happens to the ASE, if it isn't in a list, add it
+//                for(AcademicSessionEntity as : academicSessionEntities) {
+//                    if(!asSessionId.contains(as.getSessionId())) {
+//                        asSessionId.add(as.getSessionId());
+//                        asTitle.add(as.getTitle());
+//
+//                        System.out.println("Adding value to asSessionId: " + as.getSessionId());
+//                        System.out.println("Adding value to asTitle: " + as.getTitle());
+//                    }
+//                }
+//            }
+//        });
+//    }
 
     private void initViewModel() {
         mViewModel = ViewModelProviders.of(this)
@@ -177,7 +147,14 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
                     mStatus.setText(classEntity.getStatus());
 //                    mSessionId.setText(ssid);
 
-                    spinner.setSelection(asSessionId.indexOf(classEntity.getSessionId()));  // gets the position in the list of the value from the Db
+                    System.out.println("asSessionId.indexOf(classEntity.getSessionId(): " + asSessionId.indexOf(classEntity.getSessionId()));
+                    System.out.println("classEntity.getSessionId(): " + classEntity.getSessionId());
+                    System.out.println("asSessionIdItem: " + asSessionIdItem);
+                    System.out.println("asTitleItem: " + asTitleItem);
+                    System.out.println("asSessionId going into spinner: " + asSessionIdItem);
+
+                    // gets the position in the list of the value from the Db
+                    spinner.setSelection(asSessionId.indexOf(classEntity.getSessionId()));
                 }
             }
         });
@@ -191,7 +168,6 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
         } else {
             setTitle("Edit Class...");
             int classId = extras.getInt(CLASS_ID_KEY);
-            System.out.println("ClassId: " + classId);  //
             mViewModel.loadData(classId);
         }
     }
@@ -230,13 +206,13 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
 
         // Casts sessionId as int
 //        int sid = Integer.parseInt(mSessionId.getText().toString());
-//        System.out.println("saving int to Db: " + sid);
+        System.out.println("saving int to Db: " + asSessionIdItem);
         // Saves data to Db in the correct format
         mViewModel.saveData(
                 mTitle.getText().toString(),
                 mClassCode.getText().toString(),
                 mStatus.getText().toString(),
-                asSessionIdItem);
+                asSessionIdItem);  // TODO MAY NEED TO CHECK THIS.  SAVING THE RIGHT VALUE TO DB?
         finish();
     }
 

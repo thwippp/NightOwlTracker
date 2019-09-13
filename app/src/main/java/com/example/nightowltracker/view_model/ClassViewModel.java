@@ -56,7 +56,11 @@ public class ClassViewModel extends AndroidViewModel {
             classEntity.setTitle(title.trim());
             classEntity.setClassCode(classCode.trim());
             classEntity.setStatus(status.trim());
-            classEntity.setSessionId(sessionId);
+            if (sessionId == 0) {
+                classEntity.setSessionId(1);
+            } else {
+                classEntity.setSessionId(sessionId);
+            }
         }
         mRepository.insertClass(classEntity);
     }

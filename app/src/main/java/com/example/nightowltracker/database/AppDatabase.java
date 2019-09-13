@@ -13,9 +13,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Database(entities = {AcademicSessionEntity.class, ClassEntity.class, LineItemEntity.class}, version = 2, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
-    public static final String DATABASE_NAME = "AppDatabase.db";
-    private static final Object LOCK = new Object(); // no race conditions
-    private static volatile AppDatabase instance;  // stored in main memory
+
+    // DEPRECATED
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
@@ -33,14 +32,21 @@ public abstract class AppDatabase extends RoomDatabase {
             if (instance == null) {
                 instance = Room.databaseBuilder(context.getApplicationContext(),
                         AppDatabase.class, DATABASE_NAME)
-                        .addMigrations(MIGRATION_1_2)
+//                        .addMigrations(MIGRATION_1_2)  // Destroy and rebuild from the ashes
+                        .fallbackToDestructiveMigration()
                         .build();
             }
             return instance;
         }
     }
 
+    // Entities
     public abstract AcademicSessionDao academicSessionDao();
+
+    public static final String DATABASE_NAME = "AppDatabase.db";
+    private static final Object LOCK = new Object(); // no race conditions
+
+    private static volatile AppDatabase instance;  // stored in main memory
 
     public abstract ClassDao classDao();
 

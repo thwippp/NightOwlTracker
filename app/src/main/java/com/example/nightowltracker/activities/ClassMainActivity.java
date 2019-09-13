@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightowltracker.R;
+import com.example.nightowltracker.database.AcademicSessionEntity;
 import com.example.nightowltracker.database.ClassEntity;
 import com.example.nightowltracker.ui.ClassRecyclerViewAdapter;
+import com.example.nightowltracker.view_model.AcademicSessionViewModel;
 import com.example.nightowltracker.view_model.ClassViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,6 +35,8 @@ public class ClassMainActivity extends AppCompatActivity {
     private List<ClassEntity> cData = new ArrayList<>();
     private ClassRecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
+
+    private AcademicSessionViewModel asViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,13 @@ public class ClassMainActivity extends AppCompatActivity {
 
         //Init view model
         initViewModel();
+
+
+        // Adds AS view model
+        asViewModel = ViewModelProviders.of(this).get(AcademicSessionViewModel.class);
+
+        // Populate lists in Editor
+        observeAS();
 
     }
 
@@ -80,7 +91,28 @@ public class ClassMainActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this)
                 .get(ClassViewModel.class);
         mViewModel.mClass.observe(this, classObserver);  // subscribed to the data
+
+
     }
+
+    public void observeAS() {
+        asViewModel.mAcademicSession.observe(this, new Observer<List<AcademicSessionEntity>>() {
+            @Override
+            public void onChanged(List<AcademicSessionEntity> academicSessionEntities) {
+                // When a change happens to the ASE, if it isn't in a list, add it
+                for (AcademicSessionEntity as : academicSessionEntities) {
+                    if (!ClassEditorActivity.asSessionId.contains(as.getSessionId())) {
+                        ClassEditorActivity.asSessionId.add(as.getSessionId());
+                        ClassEditorActivity.asTitle.add(as.getTitle());
+
+                        System.out.println("Adding value to asSessionId: " + as.getSessionId());
+                        System.out.println("Adding value to asTitle: " + as.getTitle());
+                    }
+                }
+            }
+        });
+    }
+
 
     @Override
     protected void onPause() {
