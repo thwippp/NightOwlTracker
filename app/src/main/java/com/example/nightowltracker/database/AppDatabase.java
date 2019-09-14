@@ -10,12 +10,12 @@ import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {AcademicSessionEntity.class, ClassEntity.class, LineItemEntity.class}, version = 2, exportSchema = false)
+@Database(entities = {AcademicSessionEntity.class, ClassEntity.class, LineItemEntity.class}, version = 4, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
     // DEPRECATED
-    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
 
@@ -32,7 +32,7 @@ public abstract class AppDatabase extends RoomDatabase {
             if (instance == null) {
                 instance = Room.databaseBuilder(context.getApplicationContext(),
                         AppDatabase.class, DATABASE_NAME)
-//                        .addMigrations(MIGRATION_1_2)  // Destroy and rebuild from the ashes
+                        .addMigrations(MIGRATION_3_4)  // Destroy and rebuild from the ashes
                         .fallbackToDestructiveMigration()
                         .build();
             }

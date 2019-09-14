@@ -81,14 +81,12 @@
             android:text="Category"
             android:textSize="24sp" />
 
-        <EditText
+        <Spinner
             android:id="@+id/line_item_category"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:ems="10"
-            android:hint=""
-            android:inputType="textMultiLine|textCapSentences"
             android:selectAllOnFocus="true"
             android:textIsSelectable="true" />
 
@@ -147,17 +145,15 @@
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:inputType="textPersonName"
-            android:text="Class Id"
+            android:text="Class"
             android:textSize="24sp" />
 
-        <EditText
+        <Spinner
             android:id="@+id/line_item_class_id"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:ems="10"
-            android:hint=""
-            android:inputType="number"
             android:selectAllOnFocus="true"
             android:textIsSelectable="true" />
 

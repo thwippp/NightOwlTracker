@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightowltracker.R;
+import com.example.nightowltracker.database.ClassEntity;
 import com.example.nightowltracker.database.LineItemEntity;
 import com.example.nightowltracker.ui.LineItemRecyclerViewAdapter;
+import com.example.nightowltracker.view_model.ClassViewModel;
 import com.example.nightowltracker.view_model.LineItemViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,6 +35,8 @@ public class LineItemMainActivity extends AppCompatActivity {
     private List<LineItemEntity> lData = new ArrayList<>();
     private LineItemRecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
+
+    private ClassViewModel cViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,12 @@ public class LineItemMainActivity extends AppCompatActivity {
 
         //Init view model
         initViewModel();
+
+        // Adds AS view model
+        cViewModel = ViewModelProviders.of(this).get(ClassViewModel.class);
+
+        // Populate lists in Editor
+        observeC();
 
     }
 
@@ -80,6 +90,24 @@ public class LineItemMainActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this)
                 .get(LineItemViewModel.class);
         mViewModel.mLineItem.observe(this, lineItemObserver);  // subscribed to the data
+    }
+
+    public void observeC() {
+        cViewModel.mClass.observe(this, new Observer<List<ClassEntity>>() {
+            @Override
+            public void onChanged(List<ClassEntity> classEntities) {
+                // When a change happens to the ASE, if it isn't in a list, add it
+                for (ClassEntity c : classEntities) {
+                    if (!LineItemEditorActivity.cClassId.contains(c.getClassId())) {
+                        LineItemEditorActivity.cClassId.add(c.getClassId());
+                        LineItemEditorActivity.cTitle.add(c.getTitle());
+
+                        System.out.println("Adding value to cClassId: " + c.getClassId());
+                        System.out.println("Adding value to cTitle: " + c.getTitle());
+                    }
+                }
+            }
+        });
     }
 
     @Override

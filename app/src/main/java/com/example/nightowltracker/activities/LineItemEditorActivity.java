@@ -4,7 +4,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,21 +23,28 @@ import com.example.nightowltracker.view_model.LineItemViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static com.example.nightowltracker.utilities.Constants.LINE_ITEM_ID;
 
-public class LineItemEditorActivity extends AppCompatActivity {
+public class LineItemEditorActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "LIEditorActivity";
 
     private TextView mTitle;
     private TextView mDescription;
-    private TextView mCategory;
+    public static List<Integer> cClassId = new ArrayList<>();
     private TextView mAssignDate;
     private TextView mDueDate;
-    private TextView mClassId;
+    public static List<String> cTitle = new ArrayList<>();
+    private static List<String> mCategoryItems = new ArrayList<>();
+    private Spinner mCategory;
+    private Spinner mClassId;
+    private int cClassIdItem;
+    private String cTitleItem;
 
     private LineItemViewModel mViewModel;
     private boolean mNewData;
@@ -52,11 +64,69 @@ public class LineItemEditorActivity extends AppCompatActivity {
         mCategory = findViewById(R.id.line_item_category);
         mAssignDate = findViewById(R.id.line_item_assign_date);
         mDueDate = findViewById(R.id.line_item_due_date);
+        // Spinner element
         mClassId = findViewById(R.id.line_item_class_id);
 
         if (savedInstanceState != null) {
             mEditing = savedInstanceState.getBoolean(Constants.EDITING_KEY);
         }
+
+        // Add items to mStatus if it doesn't exist... seems like a waste to add again and again
+        if (!mCategoryItems.contains("Objective Assessment")) {
+            mCategoryItems.add("Objective Assessment");
+        }
+        if (!mCategoryItems.contains("Performance Assessment")) {
+            mCategoryItems.add("Performance Assessment");
+        }
+        if (!mCategoryItems.contains("Note")) {
+            mCategoryItems.add("Note");
+        }
+
+
+        // Spinner click listener
+        mCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // On selecting a termSpinner item
+                String item = mCategory.getItemAtPosition(i).toString();
+
+                // Showing selected termSpinner item
+                Toast.makeText(mCategory.getContext(), "Item: " + item, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+// TODO Auto-generated method stub
+            }
+        });
+        mClassId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                cTitleItem = mClassId.getItemAtPosition(i).toString();
+                mClassId.setSelection(cTitle.indexOf(cTitleItem));
+                cClassIdItem = cClassId.get(i);
+                // Showing selected termSpinner item
+                Toast.makeText(mClassId.getContext(), "Title: " + cTitleItem + ".\nClassId: " + cClassIdItem, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+// TODO Auto-generated method stub
+            }
+        });
+
+
+        // Creating adapter for spinners
+        ArrayAdapter<String> cCategoryDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mCategoryItems);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cTitle);
+
+        // Drop down layout style - list view with radio button
+        cCategoryDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinners
+        mCategory.setAdapter(cCategoryDataAdapter);
+        mClassId.setAdapter(dataAdapter);
 
         initViewModel();
 
@@ -71,7 +141,6 @@ public class LineItemEditorActivity extends AppCompatActivity {
             public void onChanged(LineItemEntity lineItemEntity) {
                 if (lineItemEntity != null && !mEditing) {
 
-
                     // Sets format for date
                     SimpleDateFormat sfaDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
                     SimpleDateFormat sfdDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
@@ -81,15 +150,18 @@ public class LineItemEditorActivity extends AppCompatActivity {
                     String sDueDate = sfdDate.format(lineItemEntity.getDueDate());
 
                     // Casts int to String
-                    String scid = String.valueOf(lineItemEntity.getClassId());
+//                    String scid = String.valueOf(lineItemEntity.getClassId());
 
                     // Sets text on TextView
                     mTitle.setText(lineItemEntity.getTitle());
                     mDescription.setText(lineItemEntity.getDescription());
-                    mCategory.setText(lineItemEntity.getCategory());
+//                    mCategory.setText(lineItemEntity.getCategory());
+                    mCategory.setSelection(mCategoryItems.indexOf(lineItemEntity.getCategory()));
                     mAssignDate.setText(sAssignDate);
                     mDueDate.setText(sDueDate);
-                    mClassId.setText(scid);
+//                    mClassId.setText(scid);
+                    mClassId.setSelection(cClassId.indexOf(lineItemEntity.getClassId()));
+
                 }
             }
         });
@@ -162,15 +234,15 @@ public class LineItemEditorActivity extends AppCompatActivity {
         }
 
         // Casts classId as int
-        int cid = Integer.parseInt(mClassId.getText().toString());
+//        int cid = Integer.parseInt(mClassId.getText().toString());
 
         // Saves data to Db in the correct format
         mViewModel.saveData(mTitle.getText().toString(),
                 mDescription.getText().toString(),
-                mCategory.getText().toString(),
+                mCategory.getSelectedItem().toString(),
                 assignDate,
                 dueDate,
-                cid);
+                cClassIdItem);
         finish();
     }
 
@@ -179,5 +251,15 @@ public class LineItemEditorActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(Constants.EDITING_KEY, true);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        // Nothing
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        // Nothing
     }
 }
