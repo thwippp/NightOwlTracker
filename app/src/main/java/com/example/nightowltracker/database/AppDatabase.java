@@ -10,7 +10,7 @@ import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {AcademicSessionEntity.class, ClassEntity.class, LineItemEntity.class}, version = 4, exportSchema = false)
+@Database(entities = {AcademicSessionEntity.class, ClassEntity.class, LineItemEntity.class, UserEntity.class}, version = 6, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -32,8 +32,8 @@ public abstract class AppDatabase extends RoomDatabase {
             if (instance == null) {
                 instance = Room.databaseBuilder(context.getApplicationContext(),
                         AppDatabase.class, DATABASE_NAME)
-                        .addMigrations(MIGRATION_3_4)  // Destroy and rebuild from the ashes
-                        .fallbackToDestructiveMigration()
+//                        .addMigrations(MIGRATION_3_4)
+                        .fallbackToDestructiveMigration() // Destroy and rebuild from the ashes
                         .build();
             }
             return instance;
@@ -51,6 +51,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ClassDao classDao();
 
     public abstract LineItemDao lineItemDao();
+
+    public abstract UserDao userDao();
 }
 
 

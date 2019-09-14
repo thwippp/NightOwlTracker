@@ -15,25 +15,28 @@ public class ClassEntity {
     private String classCode;
     private String status;
     private int sessionId;
+    private int userId;
 
     @Ignore
     public ClassEntity() {
     }
 
-    public ClassEntity(int classId, String title, String classCode, String status, int sessionId) {
+    public ClassEntity(int classId, String title, String classCode, String status, int sessionId, int userId) {
         this.classId = classId;
         this.title = title;
         this.classCode = classCode;
         this.status = status;
         this.sessionId = sessionId;
+        this.userId = userId;
     }
 
     @Ignore
-    public ClassEntity(String title, String classCode, String status, int sessionId) {
+    public ClassEntity(String title, String classCode, String status, int sessionId, int userId) {
         this.title = title;
         this.classCode = classCode;
         this.status = status;
         this.sessionId = sessionId;
+        this.userId = userId;
     }
 
     public int getClassId() {
@@ -73,8 +76,17 @@ public class ClassEntity {
     }
 
     public void setSessionId(int sessionId) {
-        this.sessionId = sessionId;
+        this.userId = userId;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
 
     @Override
     public String toString() {
@@ -84,6 +96,7 @@ public class ClassEntity {
                 ", classCode='" + classCode + '\'' +
                 ", status='" + status + '\'' +
                 ", sessionId=" + sessionId +
+                ", userId=" + userId +
                 '}';
     }
 

@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         // Image Views
         final ImageView asiv = findViewById(R.id.image_view_academic_session);
         final ImageView civ = findViewById(R.id.image_view_class);
-        final ImageView uiv = findViewById(R.id.image_view_user);
         final ImageView liiv = findViewById(R.id.image_view_line_item);
+        final ImageView uiv = findViewById(R.id.image_view_user);
 
 
         asiv.setOnClickListener(new View.OnClickListener() {
@@ -55,14 +55,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        uiv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, UserMainActivity.class);
-//                Context context = uiv.getContext();
-//                context.startActivity(intent);
-//            }
-//        });
+        uiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UserMainActivity.class);
+                Context context = uiv.getContext();
+                context.startActivity(intent);
+            }
+        });
 
     }
 

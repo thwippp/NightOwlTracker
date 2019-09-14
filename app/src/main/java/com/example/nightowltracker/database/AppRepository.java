@@ -16,6 +16,7 @@ public class AppRepository {
     public LiveData<List<AcademicSessionEntity>> mAcademicSession;
     public LiveData<List<ClassEntity>> mClass;
     public LiveData<List<LineItemEntity>> mLineItem;
+    public LiveData<List<UserEntity>> mUser;
 
 
     private AppDatabase mDb;
@@ -28,6 +29,7 @@ public class AppRepository {
         mAcademicSession = getAllAcademicSessions();
         mClass = getAllClasses();
         mLineItem = getAllLineItems();
+        mUser = getAllUsers();
     }
 
     public static AppRepository getInstance(Context context) {
@@ -156,6 +158,43 @@ public class AppRepository {
             @Override
             public void run() {
                 mDb.lineItemDao().deleteLineItem(lineItemEntity);
+            }
+        });
+    }
+
+    ///////////////////////////////////////////////////
+    // User
+    private LiveData<List<UserEntity>> getAllUsers() {
+        return mDb.userDao().getAll();
+    }
+
+    public void deleteAllUserData() {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.userDao().deleteAll();
+            }
+        });
+    }
+
+    public UserEntity getUserById(int userId) {
+        return mDb.userDao().getUserById(userId);
+    }
+
+    public void insertUser(final UserEntity userEntity) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.userDao().insertUser(userEntity);
+            }
+        });
+    }
+
+    public void deleteUser(final UserEntity userEntity) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.userDao().deleteUser(userEntity);
             }
         });
     }

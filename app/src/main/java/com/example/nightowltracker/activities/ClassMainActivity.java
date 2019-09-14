@@ -37,12 +37,13 @@ public class ClassMainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
 
     private AcademicSessionViewModel asViewModel;
+//    private UserViewModel uViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_main);
-        mRecyclerView = findViewById(R.id.recycler_view);  //TODO adapter per class?
+        mRecyclerView = findViewById(R.id.recycler_view);
 
         final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -63,9 +64,11 @@ public class ClassMainActivity extends AppCompatActivity {
 
         // Adds AS view model
         asViewModel = ViewModelProviders.of(this).get(AcademicSessionViewModel.class);
+//        uViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
         // Populate lists in Editor
         observeAS();
+//        observeU();
 
     }
 
@@ -112,6 +115,24 @@ public class ClassMainActivity extends AppCompatActivity {
             }
         });
     }
+
+//    public void observeU() {
+//        uViewModel.mUser.observe(this, new Observer<List<UserEntity>>() {
+//            @Override
+//            public void onChanged(List<UserEntity> userEntities) {
+//                // When a change happens to the ASE, if it isn't in a list, add it
+//                for (UserEntity u : userEntities) {
+//                    if (!ClassEditorActivity.uUserId.contains(u.getUserId())) {
+//                        ClassEditorActivity.uUserId.add(u.getUserId());
+//                        ClassEditorActivity.uUsername.add(u.getUsername());
+//
+//                        System.out.println("Adding value to uUserId: " + u.getUserId());
+//                        System.out.println("Adding value to uUsername: " + u.getUsername());
+//                    }
+//                }
+//            }
+//        });
+//    }
 
 
     @Override

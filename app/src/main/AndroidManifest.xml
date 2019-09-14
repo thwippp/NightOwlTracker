@@ -50,6 +50,19 @@
         </activity>
         <activity android:name=".activities.LineItemMainActivity"></activity>
 
+
+        <!--USER-->
+        <activity
+            android:name=".activities.UserEditorActivity"
+            android:label="Line Item Editor"
+            android:parentActivityName=".activities.UserMainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.nightowltracker.activities.UserMainActivity" />
+        </activity>
+        <activity android:name=".activities.UserMainActivity"></activity>
+
         <!--MAIN ACTIVITY-->
         <activity android:name=".activities.MainActivity">
             <intent-filter>

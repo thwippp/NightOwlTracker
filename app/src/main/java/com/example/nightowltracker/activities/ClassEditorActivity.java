@@ -35,15 +35,22 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
     private static List<String> mStatusItems = new ArrayList<>();
     private Spinner mStatus;
     private Spinner termSpinner;
+
     private int asSessionIdItem;
     private String asTitleItem;
     public static List<Integer> asSessionId = new ArrayList<>();
     public static List<String> asTitle = new ArrayList<>();
 
+    public static List<Integer> uUserId = new ArrayList<>();
+    public static List<String> uUsername = new ArrayList<>();
+    private int uUserIdItem;
+    private String uUserUsername;
+
 
     private ClassViewModel mViewModel;
     private boolean mNewData;
     private boolean mEditing;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,14 +208,16 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
         // gets text from textview in layout
         // Saves data to Db in given format
 
-        System.out.println("saving int to Db: " + asSessionIdItem);
         // Saves data to Db in the correct format
         mViewModel.saveData(
                 mTitle.getText().toString(),
                 mClassCode.getText().toString(),
                 mStatus.getSelectedItem().toString(),
-                asSessionIdItem);
+                asSessionIdItem,
+                uUserIdItem);
         finish();
+
+        System.out.println("saving int to Db: " + asSessionIdItem);
     }
 
     // Live Data destroys data when the orientation changes.

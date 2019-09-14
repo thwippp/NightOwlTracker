@@ -42,7 +42,7 @@ public class ClassViewModel extends AndroidViewModel {
         });
     }
 
-    public void saveData(String title, String classCode, String status, int sessionId) {
+    public void saveData(String title, String classCode, String status, int sessionId, int userId) {
         ClassEntity classEntity = mLiveC.getValue();
 
         if (classEntity == null) {
@@ -51,16 +51,18 @@ public class ClassViewModel extends AndroidViewModel {
                 // if not just spaces or empty
                 return;
             }
-            classEntity = new ClassEntity(title.trim(), classCode.trim(), status.trim(), sessionId);  // creates new AS with title and dates
+            classEntity = new ClassEntity(title.trim(), classCode.trim(), status.trim(), sessionId, userId);  // creates new AS with title and dates
         } else {
             classEntity.setTitle(title.trim());
             classEntity.setClassCode(classCode.trim());
             classEntity.setStatus(status.trim());
-            if (sessionId == 0) {
-                classEntity.setSessionId(1);
-            } else {
-                classEntity.setSessionId(sessionId);
-            }
+            classEntity.setSessionId(sessionId);
+            classEntity.setUserId(userId);
+//            if (sessionId == 0) {
+//                classEntity.setSessionId(1);
+//            } else {
+//                classEntity.setSessionId(sessionId);
+//            }
         }
         mRepository.insertClass(classEntity);
     }
