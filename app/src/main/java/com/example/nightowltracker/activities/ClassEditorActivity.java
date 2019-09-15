@@ -35,17 +35,17 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
     private static List<String> mStatusItems = new ArrayList<>();
     private Spinner mStatus;
     private Spinner termSpinner;
+    private Spinner userSpinner;
 
     private int asSessionIdItem;
     private String asTitleItem;
     public static List<Integer> asSessionId = new ArrayList<>();
     public static List<String> asTitle = new ArrayList<>();
 
+    private int uUserIdItem;
+    private String uUsernameItem;
     public static List<Integer> uUserId = new ArrayList<>();
     public static List<String> uUsername = new ArrayList<>();
-    private int uUserIdItem;
-    private String uUserUsername;
-
 
     private ClassViewModel mViewModel;
     private boolean mNewData;
@@ -61,26 +61,29 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_check_white_36dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         mTitle = findViewById(R.id.class_title);
         mClassCode = findViewById(R.id.class_code);
 
         // termSpinner element
         mStatus = findViewById(R.id.class_status);
         termSpinner = findViewById(R.id.class_session_id);
+        userSpinner = findViewById(R.id.class_user_id);
 
         // Add items to mStatus if it doesn't exist... seems like a waste to add again and again
-        if (!mStatusItems.contains("Completed")) {
-            mStatusItems.add("Completed");
+        if (!mStatusItems.contains("--")) {
+            mStatusItems.add("--");
+        }
+        if (!mStatusItems.contains("Plan to Take")) {
+            mStatusItems.add("Plan to Take");
         }
         if (!mStatusItems.contains("In Progress")) {
             mStatusItems.add("In Progress");
         }
+        if (!mStatusItems.contains("Completed")) {
+            mStatusItems.add("Completed");
+        }
         if (!mStatusItems.contains("Dropped")) {
             mStatusItems.add("Dropped");
-        }
-        if (!mStatusItems.contains("Plan to Take")) {
-            mStatusItems.add("Plan to Take");
         }
 
         // spinner setOnITemSelectedListeners
@@ -111,9 +114,26 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
                 // Showing selected termSpinner item
                 Toast.makeText(termSpinner.getContext(), "Title: " + asTitleItem + ".\nSessionId: " + asSessionIdItem, Toast.LENGTH_LONG).show();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+// TODO Auto-generated method stub
+            }
+        });
+        userSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> userAdapterView, View view, int i, long l) {
+                // On selecting a termSpinner item
+
+                uUsernameItem = userSpinner.getItemAtPosition(i).toString();
+                userSpinner.setSelection(uUsername.indexOf(uUsernameItem));
+                uUserIdItem = uUserId.get(i);
+
+                // Showing selected termSpinner item
+                Toast.makeText(userSpinner.getContext(), "Username: " + uUsernameItem + ".\nUserId: " + uUserIdItem, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> userAdapterView) {
 // TODO Auto-generated method stub
             }
         });
@@ -125,14 +145,17 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
         // Creating adapter for spinners
         ArrayAdapter<String> mStatusDataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mStatusItems);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, asTitle);
+        ArrayAdapter<String> userAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, uUsername);
 
         // Drop down layout style - list view with radio button
         mStatusDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinners
         mStatus.setAdapter(mStatusDataAdapter);
         termSpinner.setAdapter(dataAdapter);
+        userSpinner.setAdapter(userAdapter);
 
         initViewModel();
     }
@@ -159,6 +182,7 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
                     // gets the position in the list of the value from the Db
                     mStatus.setSelection(mStatusItems.indexOf(classEntity.getStatus()));
                     termSpinner.setSelection(asSessionId.indexOf(classEntity.getSessionId()));
+                    userSpinner.setSelection(uUserId.indexOf(classEntity.getUserId()));
                 }
             }
         });

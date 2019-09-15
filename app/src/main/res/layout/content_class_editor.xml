@@ -111,6 +111,27 @@
             android:selectAllOnFocus="true"
             android:textIsSelectable="true" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_class_user_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textPersonName"
+            android:text="Course Instructor"
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/class_user_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:ems="10"
+            android:selectAllOnFocus="true"
+            android:textIsSelectable="true" />
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

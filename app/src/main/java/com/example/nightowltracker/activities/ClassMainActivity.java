@@ -18,9 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nightowltracker.R;
 import com.example.nightowltracker.database.AcademicSessionEntity;
 import com.example.nightowltracker.database.ClassEntity;
+import com.example.nightowltracker.database.UserEntity;
 import com.example.nightowltracker.ui.ClassRecyclerViewAdapter;
 import com.example.nightowltracker.view_model.AcademicSessionViewModel;
 import com.example.nightowltracker.view_model.ClassViewModel;
+import com.example.nightowltracker.view_model.UserViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class ClassMainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
 
     private AcademicSessionViewModel asViewModel;
-//    private UserViewModel uViewModel;
+    private UserViewModel uViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +66,11 @@ public class ClassMainActivity extends AppCompatActivity {
 
         // Adds AS view model
         asViewModel = ViewModelProviders.of(this).get(AcademicSessionViewModel.class);
-//        uViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        uViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
         // Populate lists in Editor
         observeAS();
-//        observeU();
+        observeU();
 
     }
 
@@ -116,23 +118,23 @@ public class ClassMainActivity extends AppCompatActivity {
         });
     }
 
-//    public void observeU() {
-//        uViewModel.mUser.observe(this, new Observer<List<UserEntity>>() {
-//            @Override
-//            public void onChanged(List<UserEntity> userEntities) {
-//                // When a change happens to the ASE, if it isn't in a list, add it
-//                for (UserEntity u : userEntities) {
-//                    if (!ClassEditorActivity.uUserId.contains(u.getUserId())) {
-//                        ClassEditorActivity.uUserId.add(u.getUserId());
-//                        ClassEditorActivity.uUsername.add(u.getUsername());
-//
-//                        System.out.println("Adding value to uUserId: " + u.getUserId());
-//                        System.out.println("Adding value to uUsername: " + u.getUsername());
-//                    }
-//                }
-//            }
-//        });
-//    }
+    public void observeU() {
+        uViewModel.mUser.observe(this, new Observer<List<UserEntity>>() {
+            @Override
+            public void onChanged(List<UserEntity> userEntities) {
+                // When a change happens to the ASE, if it isn't in a list, add it
+                for (UserEntity u : userEntities) {
+                    if (!ClassEditorActivity.uUserId.contains(u.getUserId())) {
+                        ClassEditorActivity.uUserId.add(u.getUserId());
+                        ClassEditorActivity.uUsername.add(u.getUsername());
+
+                        System.out.println("Adding value to uUserId: " + u.getUserId());
+                        System.out.println("Adding value to uUsername: " + u.getUsername());
+                    }
+                }
+            }
+        });
+    }
 
 
     @Override

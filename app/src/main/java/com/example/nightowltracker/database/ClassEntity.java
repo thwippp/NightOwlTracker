@@ -76,7 +76,7 @@ public class ClassEntity {
     }
 
     public void setSessionId(int sessionId) {
-        this.userId = userId;
+        this.sessionId = sessionId;
     }
 
     public int getUserId() {
