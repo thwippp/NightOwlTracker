@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_academic_session_main_activity, menu);
         return true;
     }
 
@@ -80,11 +80,31 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Context context = MainActivity.this;
+        Intent intent;
 
-        if (id == R.id.action_go_to_academic_session) {
-            Intent intent = new Intent(MainActivity.this, AcademicSessionMainActivity.class);
-            Context context = this;
-            context.startActivity(intent);
+        //noinspection SimplifiableIfStatement
+        switch (id) {
+            case (R.id.action_go_to_main_activity):
+                intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_academic_session_main_activity):
+                intent = new Intent(context, ClassMainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_class_main_activity):
+                intent = new Intent(context, ClassMainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_line_item_main_activity):
+                intent = new Intent(context, LineItemMainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_user_main_activity):
+                intent = new Intent(context, UserMainActivity.class);
+                context.startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

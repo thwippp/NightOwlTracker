@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:name=".utilities.ApplicationContextProvider"
+
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
         <activity
             android:name=".activities.AcademicSessionEditorActivity"
             android:label="@string/title_activity_academic_session_editor"
@@ -23,7 +26,6 @@
         </activity>
 
         <activity android:name=".activities.AcademicSessionMainActivity"></activity>
-
 
         <!--CLASS-->
         <activity

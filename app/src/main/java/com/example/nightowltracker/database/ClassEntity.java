@@ -1,18 +1,28 @@
 package com.example.nightowltracker.database;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-@Entity(tableName = "Class")
+@Entity(tableName = "Class",
+        foreignKeys = @ForeignKey(
+                entity = AcademicSessionEntity.class,
+                parentColumns = "sessionId",
+                childColumns = "sessionId",
+                onDelete = ForeignKey.RESTRICT
+        ))
 
 public class ClassEntity {
     @PrimaryKey(autoGenerate = true)
     private int classId;
     private String title;
     private String classCode;
+    private Date startDate;
+    private Date endDate;
     private String status;
     private int sessionId;
     private int userId;

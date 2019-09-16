@@ -60,7 +60,7 @@ public class LineItemMainActivity extends AppCompatActivity {
         //Init view model
         initViewModel();
 
-        // Adds AS view model
+        // Adds ClassViewModel
         cViewModel = ViewModelProviders.of(this).get(ClassViewModel.class);
 
         // Populate lists in Editor
@@ -141,11 +141,31 @@ public class LineItemMainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Context context = LineItemMainActivity.this;
+        Intent intent;
 
-        if (id == R.id.action_go_to_main_activity) {
-            Intent intent = new Intent(LineItemMainActivity.this, MainActivity.class);
-            Context context = this;
-            context.startActivity(intent);
+        //noinspection SimplifiableIfStatement
+        switch (id) {
+            case (R.id.action_go_to_main_activity):
+                intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_academic_session_main_activity):
+                intent = new Intent(context, AcademicSessionMainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_class_main_activity):
+                intent = new Intent(context, ClassMainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_line_item_main_activity):
+                intent = new Intent(context, LineItemMainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_user_main_activity):
+                intent = new Intent(context, UserMainActivity.class);
+                context.startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

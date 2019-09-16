@@ -25,6 +25,8 @@ public class AcademicSessionViewModel extends AndroidViewModel {
     private Executor executor = Executors.newSingleThreadExecutor();
     private int sessionId;
 
+    private ClassViewModel cViewModel;
+
     public AcademicSessionViewModel(@NonNull Application application) {
         super(application);
         mRepository = AppRepository.getInstance(getApplication()); // get context?

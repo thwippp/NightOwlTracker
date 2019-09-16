@@ -54,24 +54,6 @@ public class AcademicSessionEditorActivity extends AppCompatActivity {
 
         initViewModel();
 
-//        // Resets SessionId and Title Lists
-//        SessionIdAndTitle.clearSessionIdArrayList();
-//        SessionIdAndTitle.clearTitleArrayList();
-//
-//        // Populate ClassEditorActivity Spinner
-//        for(AcademicSessionEntity as : mViewModel.mAcademicSession.getValue() ) {
-//            SessionIdAndTitle.addSessionId(as.getSessionId());
-//            SessionIdAndTitle.addTitle(as.getTitle());
-
-//            if(ClassEditorActivity.asSessionId.indexOf(as.getSessionId()) > -1){}
-//            else {
-//                ClassEditorActivity.asSessionId.add(as.getSessionId());
-//            }
-//            if(ClassEditorActivity.asTitle.indexOf(as.getTitle()) > -1){}
-//            else {
-//                ClassEditorActivity.asTitle.add(as.getTitle());
-//            }
-//        }
     }
 
     private void initViewModel() {
@@ -109,7 +91,6 @@ public class AcademicSessionEditorActivity extends AppCompatActivity {
             setTitle("Edit Term...");
             int sessionId = extras.getInt(ACADEMIC_SESSION_ID_KEY);
             mViewModel.loadData(sessionId);
-//            ClassEditorActivity.asSessionId.add(sessionId);  // TODO Double-check this.... seems to work 09/10/2019
         }
     }
 
@@ -129,7 +110,8 @@ public class AcademicSessionEditorActivity extends AppCompatActivity {
             saveAndReturn();
             return true;
         } else if (item.getItemId() == R.id.action_delete) {
-            mViewModel.deleteData(); // view model knows which "note" you're working with
+            mViewModel.deleteData(); // view model knows which "note" you're working with'
+            // TODO Some sort of toast message to the user
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -168,11 +150,6 @@ public class AcademicSessionEditorActivity extends AppCompatActivity {
         // Saves data to Db in given format
         mViewModel.saveData(mTitle.getText().toString(), startDate, endDate);
 
-//        ClassEditorActivity.asTitle.add(mTitle.getText().toString());
-//        Bundle extras = getIntent().getExtras();
-//        ClassEditorActivity.asSessionId.add(extras.getInt(ACADEMIC_SESSION_ID_KEY));
-
-
         finish();
     }
 
@@ -182,4 +159,6 @@ public class AcademicSessionEditorActivity extends AppCompatActivity {
         outState.putBoolean(Constants.EDITING_KEY, true);
         super.onSaveInstanceState(outState);
     }
+
+
 }

@@ -119,18 +119,37 @@ public class AcademicSessionMainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Context context = AcademicSessionMainActivity.this;
+        Intent intent;
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_add_sample_data) {
-            addSampleData();
-            return true;
-        } else if (id == R.id.action_delete_all) {
-            deleteAllData();
-            return true;
-        } else if (id == R.id.action_go_to_main_activity) {
-            Intent intent = new Intent(AcademicSessionMainActivity.this, MainActivity.class);
-            Context context = this;
-            context.startActivity(intent);
+        switch (id) {
+            case (R.id.action_add_sample_data):
+                addSampleData();
+                break;
+            case (R.id.action_delete_all):
+                deleteAllData();
+                break;
+            case (R.id.action_go_to_main_activity):
+                intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_academic_session_main_activity):
+                intent = new Intent(context, AcademicSessionMainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_class_main_activity):
+                intent = new Intent(context, ClassMainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_line_item_main_activity):
+                intent = new Intent(context, LineItemMainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_user_main_activity):
+                intent = new Intent(context, UserMainActivity.class);
+                context.startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

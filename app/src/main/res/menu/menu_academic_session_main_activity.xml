@@ -5,18 +5,38 @@
 
     <item
         android:id="@+id/action_add_sample_data"
-        android:orderInCategory="100"
+        android:orderInCategory="99"
         android:title="@string/action_add_sample_data"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_delete_all"
-        android:orderInCategory="101"
+        android:orderInCategory="100"
         android:title="@string/delete_all"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_go_to_main_activity"
-        android:orderInCategory="102"
+        android:orderInCategory="101"
         android:title="@string/home"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_go_to_academic_session_main_activity"
+        android:orderInCategory="102"
+        android:title="Term"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_go_to_class_main_activity"
+        android:orderInCategory="103"
+        android:title="Class"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_go_to_line_item_main_activity"
+        android:orderInCategory="104"
+        android:title="Assessments and Notes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_go_to_user_main_activity"
+        android:orderInCategory="105"
+        android:title="User"
         app:showAsAction="never" />
 
 </menu>

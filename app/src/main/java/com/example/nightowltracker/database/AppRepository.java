@@ -18,7 +18,6 @@ public class AppRepository {
     public LiveData<List<LineItemEntity>> mLineItem;
     public LiveData<List<UserEntity>> mUser;
 
-
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();  // don't run multiple DB operations at the same time!  This queues them.
 
@@ -83,7 +82,11 @@ public class AppRepository {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                mDb.academicSessionDao().deleteAcademicSession(academicSession);  // referenced from within another object, make it final
+                try {
+                    mDb.academicSessionDao().deleteAcademicSession(academicSession);  // referenced from within another object, make it final
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
