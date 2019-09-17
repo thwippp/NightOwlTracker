@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -33,18 +34,17 @@ public class AcademicSessionMainActivity extends AppCompatActivity {
     private List<AcademicSessionEntity> asData = new ArrayList<>();
     private AcademicSessionRecyclerViewAdapter mAdapter;
 
-    // Butterknife
-    // @Bind(R.id.recycler_view);
-    // RecyclerView mRecyclerView;
-    private RecyclerView mRecyclerView; // = findViewById(R.id.recycler_view);  // TODO figure out how to bind this without butterknife
+    public static Boolean isFKViolation = false;
+
+    private RecyclerView mRecyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_academic_session_main);
-        //TEST
-        mRecyclerView = findViewById(R.id.recycler_view);  // TODO Kinda works
-        //TEST
+        mRecyclerView = findViewById(R.id.recycler_view);
+
 
         final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +155,16 @@ public class AcademicSessionMainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (isFKViolation) {
+            Toast.makeText(this, "Sorry. A term cannot be deleted if courses are assigned to it.", Toast.LENGTH_LONG).show();
+            isFKViolation = false;
+        }
+
+    }
 
     private void deleteAllData() {
         mViewModel.deleteAllData();

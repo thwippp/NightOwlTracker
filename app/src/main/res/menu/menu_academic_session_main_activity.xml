@@ -38,5 +38,10 @@
         android:orderInCategory="105"
         android:title="User"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_go_to_class_by_term"
+        android:orderInCategory="106"
+        android:title="ClassByTerm"
+        app:showAsAction="never" />
 
 </menu>

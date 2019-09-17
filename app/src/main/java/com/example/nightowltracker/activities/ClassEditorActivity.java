@@ -21,8 +21,12 @@ import com.example.nightowltracker.database.ClassEntity;
 import com.example.nightowltracker.utilities.Constants;
 import com.example.nightowltracker.view_model.ClassViewModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static com.example.nightowltracker.utilities.Constants.CLASS_ID_KEY;
 
@@ -32,10 +36,13 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
 
     private TextView mTitle;
     private TextView mClassCode;
+    public static List<String> uUserText = new ArrayList<>();
+    private TextView mStartDate;
     private static List<String> mStatusItems = new ArrayList<>();
     private Spinner mStatus;
     private Spinner termSpinner;
     private Spinner userSpinner;
+    private TextView mEndDate;
 
     private int asSessionIdItem;
     private String asTitleItem;
@@ -46,11 +53,11 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
     private String uUsernameItem;
     public static List<Integer> uUserId = new ArrayList<>();
     public static List<String> uUsername = new ArrayList<>();
+    private TextView userTextArea;
 
     private ClassViewModel mViewModel;
     private boolean mNewData;
     private boolean mEditing;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,21 +70,24 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
 
         mTitle = findViewById(R.id.class_title);
         mClassCode = findViewById(R.id.class_code);
+        mStartDate = findViewById(R.id.class_start_date);
+        mEndDate = findViewById(R.id.class_end_date);
 
         // termSpinner element
         mStatus = findViewById(R.id.class_status);
         termSpinner = findViewById(R.id.class_session_id);
         userSpinner = findViewById(R.id.class_user_id);
+        userTextArea = findViewById(R.id.class_user_text_area);
 
         // Add items to mStatus if it doesn't exist... seems like a waste to add again and again
         if (!mStatusItems.contains("--")) {
             mStatusItems.add("--");
         }
-        if (!mStatusItems.contains("Plan to Take")) {
-            mStatusItems.add("Plan to Take");
-        }
         if (!mStatusItems.contains("In Progress")) {
             mStatusItems.add("In Progress");
+        }
+        if (!mStatusItems.contains("Plan to Take")) {
+            mStatusItems.add("Plan to Take");
         }
         if (!mStatusItems.contains("Completed")) {
             mStatusItems.add("Completed");
@@ -173,16 +183,36 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
                     mTitle.setText(classEntity.getTitle());
                     mClassCode.setText(classEntity.getClassCode());
 
-                    System.out.println("asSessionId.indexOf(classEntity.getSessionId(): " + asSessionId.indexOf(classEntity.getSessionId()));
-                    System.out.println("classEntity.getSessionId(): " + classEntity.getSessionId());
-                    System.out.println("asSessionIdItem: " + asSessionIdItem);
-                    System.out.println("asTitleItem: " + asTitleItem);
-                    System.out.println("asSessionId going into termSpinner: " + asSessionIdItem);
+                    // Sets format for date
+                    SimpleDateFormat sfsDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+                    SimpleDateFormat sfeDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+
+                    // Sets format for date from Db
+                    String sStartDate = sfsDate.format(classEntity.getStartDate());
+                    String sEndDate = sfeDate.format(classEntity.getEndDate());
+
+                    // Sets text on TextView, formatted correctly
+                    mStartDate.setText(sStartDate);
+                    mEndDate.setText(sEndDate);
+
+//                    System.out.println("asSessionId.indexOf(classEntity.getSessionId(): " + asSessionId.indexOf(classEntity.getSessionId()));
+//                    System.out.println("classEntity.getSessionId(): " + classEntity.getSessionId());
+//                    System.out.println("asSessionIdItem: " + asSessionIdItem);
+//                    System.out.println("asTitleItem: " + asTitleItem);
+//                    System.out.println("asSessionId going into termSpinner: " + asSessionIdItem);
 
                     // gets the position in the list of the value from the Db
                     mStatus.setSelection(mStatusItems.indexOf(classEntity.getStatus()));
                     termSpinner.setSelection(asSessionId.indexOf(classEntity.getSessionId()));
                     userSpinner.setSelection(uUserId.indexOf(classEntity.getUserId()));
+
+                    try {
+                        userTextArea.setText(uUserText.get(uUserId.indexOf(classEntity.getUserId())));
+                    } catch (Exception e) {
+                        System.out.println(uUserText.toString());
+                        e.printStackTrace();
+                    }
+
                 }
             }
         });
@@ -232,10 +262,33 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
         // gets text from textview in layout
         // Saves data to Db in given format
 
+        // Sets format for dates
+        SimpleDateFormat sfsDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        SimpleDateFormat sfeDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+
+        // Initializes dates with new date
+        Date startDate = new Date();
+        Date endDate = new Date();
+
+        // Parses dates that user typed in according to format
+        try {
+            startDate = sfsDate.parse(mStartDate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            endDate = sfeDate.parse(mEndDate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         // Saves data to Db in the correct format
         mViewModel.saveData(
                 mTitle.getText().toString(),
                 mClassCode.getText().toString(),
+                startDate,
+                endDate,
                 mStatus.getSelectedItem().toString(),
                 asSessionIdItem,
                 uUserIdItem);

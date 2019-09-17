@@ -19,6 +19,7 @@ import com.example.nightowltracker.R;
 import com.example.nightowltracker.database.AcademicSessionEntity;
 import com.example.nightowltracker.database.ClassEntity;
 import com.example.nightowltracker.database.UserEntity;
+import com.example.nightowltracker.ui.ClassByTermRecyclerViewAdapter;
 import com.example.nightowltracker.ui.ClassRecyclerViewAdapter;
 import com.example.nightowltracker.view_model.AcademicSessionViewModel;
 import com.example.nightowltracker.view_model.ClassViewModel;
@@ -100,6 +101,19 @@ public class ClassMainActivity extends AppCompatActivity {
 
     }
 
+    private void initRecyclerView() {
+        Log.d(TAG, "initRecyclerView: init RecyclerView");
+        mRecyclerView = findViewById(R.id.recycler_view);  // todo
+        mRecyclerView.setHasFixedSize(true);  // Each item is the same height. Avoids re-measurements.
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        // Adds some decoration between items
+        DividerItemDecoration divider = new DividerItemDecoration(
+                mRecyclerView.getContext(), layoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(divider);
+    }
+
     public void observeAS() {
         asViewModel.mAcademicSession.observe(this, new Observer<List<AcademicSessionEntity>>() {
             @Override
@@ -109,6 +123,13 @@ public class ClassMainActivity extends AppCompatActivity {
                     if (!ClassEditorActivity.asSessionId.contains(as.getSessionId())) {
                         ClassEditorActivity.asSessionId.add(as.getSessionId());
                         ClassEditorActivity.asTitle.add(as.getTitle());
+
+                        System.out.println("Adding value to asSessionId: " + as.getSessionId());
+                        System.out.println("Adding value to asTitle: " + as.getTitle());
+                    }
+                    if (!ClassByTermRecyclerViewAdapter.asSessionId.contains(as.getSessionId())) {
+                        ClassByTermRecyclerViewAdapter.asSessionId.add(as.getSessionId());
+                        ClassByTermRecyclerViewAdapter.asTitle.add(as.getTitle());
 
                         System.out.println("Adding value to asSessionId: " + as.getSessionId());
                         System.out.println("Adding value to asTitle: " + as.getTitle());
@@ -127,10 +148,13 @@ public class ClassMainActivity extends AppCompatActivity {
                     if (!ClassEditorActivity.uUserId.contains(u.getUserId())) {
                         ClassEditorActivity.uUserId.add(u.getUserId());
                         ClassEditorActivity.uUsername.add(u.getUsername());
+                        ClassEditorActivity.uUserText.add(u.toString());
 
                         System.out.println("Adding value to uUserId: " + u.getUserId());
                         System.out.println("Adding value to uUsername: " + u.getUsername());
+                        System.out.println("Adding value to uUserText: " + u.toString());
                     }
+
                 }
             }
         });
@@ -140,19 +164,6 @@ public class ClassMainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-    }
-
-    private void initRecyclerView() {
-        Log.d(TAG, "initRecyclerView: init RecyclerView");
-        mRecyclerView = findViewById(R.id.recycler_view);  // todo
-        mRecyclerView.setHasFixedSize(true);  // Each item is the same height. Avoids re-measurements.
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(layoutManager);
-
-        // Adds some decoration between items
-        DividerItemDecoration divider = new DividerItemDecoration(
-                mRecyclerView.getContext(), layoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(divider);
     }
 
     @Override
@@ -191,6 +202,10 @@ public class ClassMainActivity extends AppCompatActivity {
                 break;
             case (R.id.action_go_to_user_main_activity):
                 intent = new Intent(context, UserMainActivity.class);
+                context.startActivity(intent);
+                break;
+            case (R.id.action_go_to_class_by_term):
+                intent = new Intent(context, ClassByTermActivity.class);
                 context.startActivity(intent);
                 break;
         }

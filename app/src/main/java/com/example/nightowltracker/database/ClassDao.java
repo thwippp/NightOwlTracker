@@ -23,6 +23,9 @@ public interface ClassDao {
     @Query("SELECT * FROM class WHERE classId = :id")
     ClassEntity getClassById(int id);
 
+    @Query("SELECT * FROM class WHERE sessionId = :id ORDER BY sessionId")
+    ClassEntity getClassBySessionId(int id);
+
     @Query("SELECT * FROM class ORDER BY classId")
     LiveData<List<ClassEntity>> getAll();
 

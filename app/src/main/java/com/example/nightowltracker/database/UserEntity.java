@@ -112,14 +112,14 @@ public class UserEntity {
     @Override
     public String toString() {
         return "UserEntity{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", givenName='" + givenName + '\'' +
-                ", familyName='" + familyName + '\'' +
-                ", role='" + role + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", sms='" + sms + '\'' +
+                "UserId: " + userId +
+                ", Username: '" + username + '\'' +
+                ", Given Name: '" + givenName + '\'' +
+                ", Family Name: '" + familyName + '\'' +
+                ", Role: '" + role + '\'' +
+                ", Email: '" + email + '\'' +
+                ", Phone: '" + phone + '\'' +
+                ", SMS: '" + sms + '\'' +
                 '}';
     }
 

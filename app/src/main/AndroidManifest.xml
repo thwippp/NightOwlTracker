@@ -29,6 +29,16 @@
 
         <!--CLASS-->
         <activity
+            android:name=".activities.ClassByTermActivity"
+            android:label="@string/title_activity_class_editor"
+            android:parentActivityName=".activities.ClassMainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.nightowltracker.activities.ClassMainActivity" />
+        </activity>
+
+        <activity
             android:name=".activities.ClassEditorActivity"
             android:label="@string/title_activity_class_editor"
             android:parentActivityName=".activities.ClassMainActivity"

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.nightowltracker.activities.AcademicSessionMainActivity;
 import com.example.nightowltracker.utilities.SampleData;
 
 import java.util.List;
@@ -85,6 +86,8 @@ public class AppRepository {
                 try {
                     mDb.academicSessionDao().deleteAcademicSession(academicSession);  // referenced from within another object, make it final
                 } catch (Exception e) {
+                    AcademicSessionMainActivity.isFKViolation = true;
+                    System.out.println("isFKViolation");
                     e.printStackTrace();
                 }
             }
@@ -108,6 +111,10 @@ public class AppRepository {
 
     public ClassEntity getClassById(int classId) {
         return mDb.classDao().getClassById(classId);
+    }
+
+    public ClassEntity getClassBySessionId(int sessionId) {
+        return mDb.classDao().getClassBySessionId(sessionId);
     }
 
     public void insertClass(final ClassEntity classEntity) {

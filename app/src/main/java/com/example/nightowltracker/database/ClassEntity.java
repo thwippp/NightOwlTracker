@@ -31,19 +31,23 @@ public class ClassEntity {
     public ClassEntity() {
     }
 
-    public ClassEntity(int classId, String title, String classCode, String status, int sessionId, int userId) {
+    public ClassEntity(int classId, String title, String classCode, Date startDate, Date endDate, String status, int sessionId, int userId) {
         this.classId = classId;
         this.title = title;
         this.classCode = classCode;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.status = status;
         this.sessionId = sessionId;
         this.userId = userId;
     }
 
     @Ignore
-    public ClassEntity(String title, String classCode, String status, int sessionId, int userId) {
+    public ClassEntity(String title, String classCode, Date startDate, Date endDate, String status, int sessionId, int userId) {
         this.title = title;
         this.classCode = classCode;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.status = status;
         this.sessionId = sessionId;
         this.userId = userId;
@@ -73,6 +77,22 @@ public class ClassEntity {
         this.classCode = classCode;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -97,13 +117,14 @@ public class ClassEntity {
         this.userId = userId;
     }
 
-
     @Override
     public String toString() {
         return "ClassEntity{" +
                 "classId=" + classId +
                 ", title='" + title + '\'' +
                 ", classCode='" + classCode + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 ", status='" + status + '\'' +
                 ", sessionId=" + sessionId +
                 ", userId=" + userId +

@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.nightowltracker.database.AppRepository;
 import com.example.nightowltracker.database.ClassEntity;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -42,7 +43,18 @@ public class ClassViewModel extends AndroidViewModel {
         });
     }
 
-    public void saveData(String title, String classCode, String status, int sessionId, int userId) {
+    public void loadClassByTermData(final int sessionId) {
+        //needs to be wrapped inside a background thread
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                ClassEntity classEntity = mRepository.getClassBySessionId(sessionId);
+                mLiveC.postValue(classEntity);
+            }
+        });
+    }
+
+    public void saveData(String title, String classCode, Date startDate, Date endDate, String status, int sessionId, int userId) {
         ClassEntity classEntity = mLiveC.getValue();
 
         if (classEntity == null) {
@@ -51,18 +63,13 @@ public class ClassViewModel extends AndroidViewModel {
                 // if not just spaces or empty
                 return;
             }
-            classEntity = new ClassEntity(title.trim(), classCode.trim(), status.trim(), sessionId, userId);  // creates new AS with title and dates
+            classEntity = new ClassEntity(title.trim(), classCode.trim(), startDate, endDate, status.trim(), sessionId, userId);  // creates new AS with title and dates
         } else {
             classEntity.setTitle(title.trim());
             classEntity.setClassCode(classCode.trim());
             classEntity.setStatus(status.trim());
             classEntity.setSessionId(sessionId);
             classEntity.setUserId(userId);
-//            if (sessionId == 0) {
-//                classEntity.setSessionId(1);
-//            } else {
-//                classEntity.setSessionId(sessionId);
-//            }
         }
         mRepository.insertClass(classEntity);
     }

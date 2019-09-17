@@ -77,10 +77,10 @@ public class AcademicSessionEntity {
     @Override
     public String toString() {
         return "AcademicSessionEntity{" +
-                "sessionId=" + sessionId +
-                ", title='" + title + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
+                "SessionId: " + sessionId +
+                ", Title: '" + title + '\'' +
+                ", StartDate: " + startDate +
+                ", EndDate: " + endDate +
                 '}';
     }
 
