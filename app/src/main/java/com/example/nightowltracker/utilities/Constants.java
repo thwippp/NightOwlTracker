@@ -7,4 +7,5 @@ public class Constants {
     public static final String LINE_ITEM_ID = "line_item_id_key";
     //    public static final String ENROLLMENT_ID = "enrollment_id_key";
     public static final String USER_ID = "user_id_key";
+    public static final String ASSESSMENT_CHANNEL_ID = "assessment_channel_id";
 }

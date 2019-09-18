@@ -1,7 +1,16 @@
 package com.example.nightowltracker.activities;
 
+import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +29,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.nightowltracker.R;
 import com.example.nightowltracker.database.LineItemEntity;
 import com.example.nightowltracker.utilities.Constants;
+import com.example.nightowltracker.utilities.NotificationPublisher;
 import com.example.nightowltracker.view_model.LineItemViewModel;
 
 import java.text.ParseException;
@@ -31,6 +41,7 @@ import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import static com.example.nightowltracker.utilities.Constants.ASSESSMENT_CHANNEL_ID;
 import static com.example.nightowltracker.utilities.Constants.LINE_ITEM_ID;
 
 public class LineItemEditorActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -134,7 +145,62 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
         mCategory.setAdapter(cCategoryDataAdapter);
         mClassId.setAdapter(dataAdapter);
 
+        createNotificationChannel();
+        scheduleNotification(getNotification("10 second delay"), 5000);
+
         initViewModel();
+
+
+//        final long ONE_MINUTE_IN_MILLIS = 60000; //millisecs
+//
+//        Calendar date = Calendar.getInstance();
+//        long t = date.getTimeInMillis();
+//        Date afterAddingOneMin=new Date(t + (1 * ONE_MINUTE_IN_MILLIS));
+//
+////        Date targetDate = new Date(2019, 8, 18, 5, 29);
+//        System.out.println(afterAddingOneMin);
+//        setAlarm(afterAddingOneMin);
+    }
+
+    private void createNotificationChannel() {
+        System.out.println("Creating Notification Channel.");
+
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(ASSESSMENT_CHANNEL_ID, ASSESSMENT_CHANNEL_ID, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("Assessment Notifications");
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    //Notification
+    private void scheduleNotification(Notification notification, int delay) {
+        System.out.println("Scheduling Notification.");
+
+        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private Notification getNotification(String content) {
+        System.out.println("Getting Notification.");
+
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentTitle("Scheduled Notification");
+        builder.setContentText(content);
+        builder.setSmallIcon(R.drawable.check);
+        builder.setChannelId(ASSESSMENT_CHANNEL_ID);
+        return builder.build();
     }
 
     private void initViewModel() {

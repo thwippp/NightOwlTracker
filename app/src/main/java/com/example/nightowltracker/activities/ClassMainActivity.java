@@ -64,7 +64,6 @@ public class ClassMainActivity extends AppCompatActivity {
         //Init view model
         initViewModel();
 
-
         // Adds AS view model
         asViewModel = ViewModelProviders.of(this).get(AcademicSessionViewModel.class);
         uViewModel = ViewModelProviders.of(this).get(UserViewModel.class);

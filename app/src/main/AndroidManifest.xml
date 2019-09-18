@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.nightowltracker">
 
+    <!--Notifications-->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
     <!--ACADEMIC SESSION-->
     <application
         android:fullBackupContent="@xml/backup_descriptor"
@@ -14,6 +19,9 @@
         android:name=".utilities.ApplicationContextProvider"
 
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+        <!--Notifications-->
+        <receiver android:name="com.example.nightowltracker.utilities.NotificationPublisher" />
 
         <activity
             android:name=".activities.AcademicSessionEditorActivity"
