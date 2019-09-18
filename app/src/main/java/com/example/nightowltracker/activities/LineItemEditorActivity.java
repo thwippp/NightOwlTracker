@@ -1,5 +1,6 @@
 package com.example.nightowltracker.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import static com.example.nightowltracker.utilities.Constants.LINE_ITEM_ID;
 
@@ -49,6 +52,9 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
     private LineItemViewModel mViewModel;
     private boolean mNewData;
     private boolean mEditing;
+
+    private Executor executor = Executors.newSingleThreadExecutor();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +135,6 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
         mClassId.setAdapter(dataAdapter);
 
         initViewModel();
-
     }
 
     private void initViewModel() {
@@ -194,6 +199,18 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             saveAndReturn();
+            return true;
+        } else if (item.getItemId() == R.id.action_share_line_item) {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+
+            String shareText = "Title: " + mTitle.getText() + "\nDescription: " + mDescription.getText() + "\nCategory: " + mCategory.getSelectedItem().toString() + "\nAssign Date: " + mAssignDate.getText() + "\nDueDate: " + mDueDate.getText();
+
+            sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+            sendIntent.setType("text/plain");
+
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            startActivity(shareIntent);
             return true;
         } else if (item.getItemId() == R.id.action_delete) {
             mViewModel.deleteData(); // view model knows which "note" you're working with
