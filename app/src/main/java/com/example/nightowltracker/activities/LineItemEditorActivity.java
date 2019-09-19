@@ -56,6 +56,7 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
     private TextView mDescription;
     public static List<Integer> cClassId = new ArrayList<>();
     private TextView mAssignDate;
+    private Switch mAssignDateSwitch;
     private TextView mDueDate;
     private Switch mDueDateSwitch;
     public static List<String> cTitle = new ArrayList<>();
@@ -91,6 +92,7 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
         // Spinner element
         mClassId = findViewById(R.id.line_item_class_id);
         mDueDateSwitch = findViewById(R.id.switch_line_item_due_date);
+        mAssignDateSwitch = findViewById(R.id.switch_line_item_assign_date);
 
 
         if (savedInstanceState != null) {
@@ -140,12 +142,55 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
 // TODO Auto-generated method stub
             }
         });
+        mAssignDateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                // Toast.makeText(LineItemEditorActivity.this, "Checked.", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "onCheckedChanged...");
+                if (mAssignDate.getText() != null) {
+                    Log.i(TAG, "datenotnull");
+
+                    // Sets format for dates
+                    SimpleDateFormat sAssignDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
+                    Log.i(TAG, "sAssignDate");
+
+                    // Initializes dates with new date
+                    Date assignDate = new Date();
+                    Log.i(TAG, "new assignDate");
+
+                    // Parses dates that user typed in according to format
+                    try {
+                        assignDate = sAssignDate.parse(mAssignDate.getText().toString());
+                        Log.i(TAG, "assignDate parsed: " + assignDate.toString());
+                        Log.i(TAG, "assignDate in Millis: " + assignDate.getTime());
+
+                        Calendar rightNow = Calendar.getInstance();
+                        long millis = rightNow.getTimeInMillis();
+                        Log.i(TAG, "millis: " + millis);
+
+                        int diff = (int) (assignDate.getTime() - millis);
+                        Log.i(TAG, "diff: " + diff);
+
+                        // Protects against past events (negative differences)
+                        if (diff > 0) {
+                            Log.i(TAG, "dueDate: " + assignDate.toString());
+                            scheduleNotification(getNotification(mTitle.getText().toString(), mDescription.getText().toString() + "\n" + assignDate.toString()), diff);
+
+                            Toast.makeText(LineItemEditorActivity.this, "Your notification has been scheduled for " + assignDate.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (ParseException e) {
+                        Log.i(TAG, "error");
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
         mDueDateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 // Toast.makeText(LineItemEditorActivity.this, "Checked.", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "onCheckedChanged...");
-
                 if (mDueDate.getText() != null) {
                     Log.i(TAG, "datenotnull");
 

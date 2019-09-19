@@ -108,10 +108,35 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/text_margin"
             android:ems="10"
-            android:hint=""
-            android:inputType="date"
+            android:hint="MM/DD/YYYY HH:mm:ss"
+            android:inputType="datetime"
             android:selectAllOnFocus="true"
             android:textIsSelectable="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/label_line_item_set_alarm_for_assign_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName"
+                android:text="Set Alarm for Assign Date"
+                android:textSize="20sp" />
+
+            <Switch
+                android:id="@+id/switch_line_item_assign_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin" />
+
+        </LinearLayout>
 
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -132,29 +157,35 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/text_margin"
             android:ems="10"
-            android:hint=""
+            android:hint="MM/DD/YYYY HH:mm:ss"
             android:inputType="datetime"
             android:selectAllOnFocus="true"
             android:textIsSelectable="true" />
 
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/label_line_item_set_alarm_for_due_date"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:ems="10"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:inputType="textPersonName"
-            android:text="Set Alarm for Due Date"
-            android:textSize="24sp" />
+            android:orientation="horizontal">
 
-        <Switch
-            android:id="@+id/switch_line_item_due_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/label_line_item_set_alarm_for_due_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName"
+                android:text="Set Alarm for Due Date"
+                android:textSize="20sp" />
+
+            <Switch
+                android:id="@+id/switch_line_item_due_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin" />
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/label_line_item_class_id"

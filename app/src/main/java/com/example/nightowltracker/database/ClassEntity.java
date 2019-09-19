@@ -3,6 +3,7 @@ package com.example.nightowltracker.database;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
@@ -12,9 +13,12 @@ import java.util.Date;
         foreignKeys = @ForeignKey(
                 entity = AcademicSessionEntity.class,
                 parentColumns = "sessionId",
-                childColumns = "sessionId",
-                onDelete = ForeignKey.RESTRICT
-        ))
+                childColumns = "sessionId"
+                //,
+//                onDelete = ForeignKey.RESTRICT  // prevents updates to parent as well
+        ),
+        indices = {@Index("sessionId")}
+)
 
 public class ClassEntity {
     @PrimaryKey(autoGenerate = true)

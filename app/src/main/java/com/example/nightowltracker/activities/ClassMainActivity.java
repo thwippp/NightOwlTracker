@@ -76,6 +76,14 @@ public class ClassMainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Populate lists in Editor
+        observeAS();
+        observeU();
+    }
+
     private void initViewModel() {
 
         final Observer<List<ClassEntity>> classObserver =
