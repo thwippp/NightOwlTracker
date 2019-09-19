@@ -87,10 +87,35 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/text_margin"
             android:ems="10"
-            android:hint="@string/start_date"
-            android:inputType="date"
+            android:hint="MM/DD/YYYY HH:mm:ss"
+            android:inputType="datetime"
             android:selectAllOnFocus="true"
             android:textIsSelectable="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/label_class_set_alarm_for_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName"
+                android:text="Set Alarm for Start Date"
+                android:textSize="20sp" />
+
+            <Switch
+                android:id="@+id/switch_class_start_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin" />
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/label_class_end_date"
@@ -110,10 +135,35 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/text_margin"
             android:ems="10"
-            android:hint="@string/end_date"
-            android:inputType="date"
+            android:hint="MM/DD/YYYY HH:mm:ss"
+            android:inputType="datetime"
             android:selectAllOnFocus="true"
             android:textIsSelectable="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/label_class_set_alarm_for_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName"
+                android:text="Set Alarm for End Date"
+                android:textSize="20sp" />
+
+            <Switch
+                android:id="@+id/switch_class_end_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin" />
+
+        </LinearLayout>
 
 
         <androidx.appcompat.widget.AppCompatTextView

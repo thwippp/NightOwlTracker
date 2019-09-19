@@ -91,8 +91,8 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
         mDueDate = findViewById(R.id.line_item_due_date);
         // Spinner element
         mClassId = findViewById(R.id.line_item_class_id);
-        mDueDateSwitch = findViewById(R.id.switch_line_item_due_date);
         mAssignDateSwitch = findViewById(R.id.switch_line_item_assign_date);
+        mDueDateSwitch = findViewById(R.id.switch_line_item_due_date);
 
 
         if (savedInstanceState != null) {
@@ -270,7 +270,7 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
         Log.i(TAG, "scheduleNotification, delay");
 
         Intent notificationIntent = new Intent(this, NotificationPublisher.class);
-        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, delay);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -305,26 +305,20 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
                 if (lineItemEntity != null && !mEditing) {
 
                     // Sets format for date
-                    SimpleDateFormat sfaDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-                    SimpleDateFormat sfdDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+                    SimpleDateFormat sfaDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
+                    SimpleDateFormat sfdDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
 
                     // Sets format for date from Db
                     String sAssignDate = sfaDate.format(lineItemEntity.getAssignDate());
                     String sDueDate = sfdDate.format(lineItemEntity.getDueDate());
 
-                    // Casts int to String
-//                    String scid = String.valueOf(lineItemEntity.getClassId());
-
                     // Sets text on TextView
                     mTitle.setText(lineItemEntity.getTitle());
                     mDescription.setText(lineItemEntity.getDescription());
-//                    mCategory.setText(lineItemEntity.getCategory());
                     mCategory.setSelection(mCategoryItems.indexOf(lineItemEntity.getCategory()));
                     mAssignDate.setText(sAssignDate);
                     mDueDate.setText(sDueDate);
-//                    mClassId.setText(scid);
                     mClassId.setSelection(cClassId.indexOf(lineItemEntity.getClassId()));
-
                 }
             }
         });
@@ -388,8 +382,8 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
         // Saves data to Db in given format
 
         // Sets format for dates
-        SimpleDateFormat sfaDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-        SimpleDateFormat sfdDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        SimpleDateFormat sfaDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
+        SimpleDateFormat sfdDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
 
         // Initializes dates with new date
         Date assignDate = new Date();
