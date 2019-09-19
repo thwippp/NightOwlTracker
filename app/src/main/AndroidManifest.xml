@@ -16,7 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".utilities.ApplicationContextProvider"
 
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
@@ -33,7 +32,7 @@
                 android:value="com.example.nightowltracker.activities.AcademicSessionMainActivity" />
         </activity>
 
-        <activity android:name=".activities.AcademicSessionMainActivity"></activity>
+        <activity android:name=".activities.AcademicSessionMainActivity" />
 
         <!--CLASS-->
         <activity
@@ -55,7 +54,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nightowltracker.activities.ClassMainActivity" />
         </activity>
-        <activity android:name=".activities.ClassMainActivity"></activity>
+        <activity android:name=".activities.ClassMainActivity" />
 
 
         <!--LINE ITEM-->
@@ -68,7 +67,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nightowltracker.activities.LineItemMainActivity" />
         </activity>
-        <activity android:name=".activities.LineItemMainActivity"></activity>
+        <activity android:name=".activities.LineItemMainActivity" />
 
 
         <!--USER-->
@@ -81,7 +80,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nightowltracker.activities.UserMainActivity" />
         </activity>
-        <activity android:name=".activities.UserMainActivity"></activity>
+        <activity android:name=".activities.UserMainActivity" />
 
         <!--MAIN ACTIVITY-->
         <activity android:name=".activities.MainActivity">
