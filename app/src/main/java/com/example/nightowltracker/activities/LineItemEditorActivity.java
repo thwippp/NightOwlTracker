@@ -11,13 +11,16 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,7 @@ import com.example.nightowltracker.view_model.LineItemViewModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -53,6 +57,7 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
     public static List<Integer> cClassId = new ArrayList<>();
     private TextView mAssignDate;
     private TextView mDueDate;
+    private Switch mDueDateSwitch;
     public static List<String> cTitle = new ArrayList<>();
     private static List<String> mCategoryItems = new ArrayList<>();
     private Spinner mCategory;
@@ -65,6 +70,8 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
     private boolean mEditing;
 
     private Executor executor = Executors.newSingleThreadExecutor();
+
+//    private dueDateAlarm;
 
 
     @Override
@@ -83,20 +90,22 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
         mDueDate = findViewById(R.id.line_item_due_date);
         // Spinner element
         mClassId = findViewById(R.id.line_item_class_id);
+        mDueDateSwitch = findViewById(R.id.switch_line_item_due_date);
+
 
         if (savedInstanceState != null) {
             mEditing = savedInstanceState.getBoolean(Constants.EDITING_KEY);
         }
 
         // Add items to mStatus if it doesn't exist... seems like a waste to add again and again
+        if (!mCategoryItems.contains("Note")) {
+            mCategoryItems.add("Note");
+        }
         if (!mCategoryItems.contains("Objective Assessment")) {
             mCategoryItems.add("Objective Assessment");
         }
         if (!mCategoryItems.contains("Performance Assessment")) {
             mCategoryItems.add("Performance Assessment");
-        }
-        if (!mCategoryItems.contains("Note")) {
-            mCategoryItems.add("Note");
         }
 
 
@@ -131,7 +140,51 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
 // TODO Auto-generated method stub
             }
         });
+        mDueDateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Toast.makeText(LineItemEditorActivity.this, "Checked.", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "onCheckedChanged...");
 
+                if (mDueDate.getText() != null) {
+                    Log.i(TAG, "datenotnull");
+
+                    // Sets format for dates
+                    SimpleDateFormat sdueDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
+                    Log.i(TAG, "sDueDate");
+
+                    // Initializes dates with new date
+                    Date dueDate = new Date();
+                    Log.i(TAG, "new dueDate");
+
+                    // Parses dates that user typed in according to format
+                    try {
+                        dueDate = sdueDate.parse(mDueDate.getText().toString());
+
+                        Log.i(TAG, "dueDate parsed: " + dueDate.toString());
+
+                        Log.i(TAG, "duedate in Millis: " + dueDate.getTime());
+
+                        Calendar rightNow = Calendar.getInstance();
+                        long millis = rightNow.getTimeInMillis();
+                        Log.i(TAG, "millis: " + millis);
+
+                        int diff = (int) (dueDate.getTime() - millis);
+                        Log.i(TAG, "diff: " + diff);
+
+                        Log.i(TAG, "dueDate: " + dueDate.toString());
+                        scheduleNotification(getNotification(mTitle.getText().toString(), mDescription.getText().toString() + "\n" + dueDate.toString()), diff);
+
+                        Toast.makeText(LineItemEditorActivity.this, "Your notification has been scheduled for " + dueDate.toString(), Toast.LENGTH_SHORT);
+
+                    } catch (ParseException e) {
+                        Log.i(TAG, "error");
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
 
         // Creating adapter for spinners
         ArrayAdapter<String> cCategoryDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mCategoryItems);
@@ -146,20 +199,9 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
         mClassId.setAdapter(dataAdapter);
 
         createNotificationChannel();
-        scheduleNotification(getNotification("10 second delay"), 5000);
 
         initViewModel();
 
-
-//        final long ONE_MINUTE_IN_MILLIS = 60000; //millisecs
-//
-//        Calendar date = Calendar.getInstance();
-//        long t = date.getTimeInMillis();
-//        Date afterAddingOneMin=new Date(t + (1 * ONE_MINUTE_IN_MILLIS));
-//
-////        Date targetDate = new Date(2019, 8, 18, 5, 29);
-//        System.out.println(afterAddingOneMin);
-//        setAlarm(afterAddingOneMin);
     }
 
     private void createNotificationChannel() {
@@ -178,8 +220,25 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
     }
 
     //Notification
+    private void scheduleNotification(Notification notification, Date date) {
+        System.out.println("Scheduling Notification.");
+        Log.i(TAG, "scheduleNotification, date");
+
+        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = date.getTime();
+        Log.i(TAG, "scheduleNotification: futureInMillis" + futureInMillis);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    //Notification
     private void scheduleNotification(Notification notification, int delay) {
         System.out.println("Scheduling Notification.");
+        Log.i(TAG, "scheduleNotification, delay");
 
         Intent notificationIntent = new Intent(this, NotificationPublisher.class);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
@@ -187,16 +246,20 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
+
+        Log.i(TAG, "scheduleNotification: futureInMillis" + futureInMillis);
+
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
 
     @TargetApi(Build.VERSION_CODES.O)
-    private Notification getNotification(String content) {
+    private Notification getNotification(String title, String content) {
         System.out.println("Getting Notification.");
+        Log.i(TAG, "getNotification");
 
         Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle("Scheduled Notification");
+        builder.setContentTitle(title);
         builder.setContentText(content);
         builder.setSmallIcon(R.drawable.check);
         builder.setChannelId(ASSESSMENT_CHANNEL_ID);
