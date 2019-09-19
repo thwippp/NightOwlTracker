@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -66,8 +65,8 @@ public class UserEditorActivity extends AppCompatActivity implements AdapterView
         mSms = findViewById(R.id.user_sms);
 
         // Add items to mRole if it doesn't exist... seems like a waste to add again and again
-        if (!mRoleItems.contains("Teacher")) {
-            mRoleItems.add("Teacher");
+        if (!mRoleItems.contains("Course Instructor")) {
+            mRoleItems.add("Course Instructor");
         }
         if (!mRoleItems.contains("Student")) {
             mRoleItems.add("Student");
@@ -81,7 +80,7 @@ public class UserEditorActivity extends AppCompatActivity implements AdapterView
                 String item = mRole.getItemAtPosition(i).toString();
 
                 // Showing selected termSpinner item
-                Toast.makeText(mRole.getContext(), "Item: " + item, Toast.LENGTH_LONG).show();
+                // Toast.makeText(mRole.getContext(), "Item: " + item, Toast.LENGTH_LONG).show();
             }
 
             @Override

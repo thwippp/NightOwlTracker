@@ -111,7 +111,6 @@ public class AcademicSessionEditorActivity extends AppCompatActivity {
             return true;
         } else if (item.getItemId() == R.id.action_delete) {
             mViewModel.deleteData(); // view model knows which "note" you're working with'
-            // TODO Some sort of toast message to the user
             finish();
         }
         return super.onOptionsItemSelected(item);

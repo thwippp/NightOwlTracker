@@ -45,6 +45,7 @@ public class AcademicSessionMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_academic_session_main);
         mRecyclerView = findViewById(R.id.recycler_view);
 
+        setTitle("Terms");
 
         final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

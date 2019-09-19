@@ -48,6 +48,8 @@ public class ClassMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_class_main);
         mRecyclerView = findViewById(R.id.recycler_view);
 
+        setTitle("Classes");
+
         final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,15 +125,15 @@ public class ClassMainActivity extends AppCompatActivity {
                         ClassEditorActivity.asSessionId.add(as.getSessionId());
                         ClassEditorActivity.asTitle.add(as.getTitle());
 
-                        System.out.println("Adding value to asSessionId: " + as.getSessionId());
-                        System.out.println("Adding value to asTitle: " + as.getTitle());
+                        //System.out.println("Adding value to asSessionId: " + as.getSessionId());
+                        //System.out.println("Adding value to asTitle: " + as.getTitle());
                     }
                     if (!ClassByTermRecyclerViewAdapter.asSessionId.contains(as.getSessionId())) {
                         ClassByTermRecyclerViewAdapter.asSessionId.add(as.getSessionId());
                         ClassByTermRecyclerViewAdapter.asTitle.add(as.getTitle());
 
-                        System.out.println("Adding value to asSessionId: " + as.getSessionId());
-                        System.out.println("Adding value to asTitle: " + as.getTitle());
+                        //System.out.println("Adding value to asSessionId: " + as.getSessionId());
+                        //System.out.println("Adding value to asTitle: " + as.getTitle());
                     }
                 }
             }
@@ -149,9 +151,9 @@ public class ClassMainActivity extends AppCompatActivity {
                         ClassEditorActivity.uUsername.add(u.getUsername());
                         ClassEditorActivity.uUserText.add(u.toString());
 
-                        System.out.println("Adding value to uUserId: " + u.getUserId());
-                        System.out.println("Adding value to uUsername: " + u.getUsername());
-                        System.out.println("Adding value to uUserText: " + u.toString());
+                        //System.out.println("Adding value to uUserId: " + u.getUserId());
+                        //System.out.println("Adding value to uUsername: " + u.getUsername());
+                        //System.out.println("Adding value to uUserText: " + u.toString());
                     }
 
                 }
@@ -168,7 +170,7 @@ public class ClassMainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_academic_session_main_activity, menu);
+        getMenuInflater().inflate(R.menu.menu_class_main, menu);
         return true;
     }
 

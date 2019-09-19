@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle("NightOwlTracker");
+
         // Image Views
         final ImageView asiv = findViewById(R.id.image_view_academic_session);
         final ImageView civ = findViewById(R.id.image_view_class);
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_academic_session_main_activity, menu);
+        getMenuInflater().inflate(R.menu.menu_navigation_items, menu);
         return true;
     }
 

@@ -44,6 +44,8 @@ public class ClassByTermActivity extends AppCompatActivity {
         setContentView(R.layout.activity_class_by_term);
         mRecyclerView = findViewById(R.id.recycler_view);
 
+        setTitle("Classes By Term");
+
         final FloatingActionButton fab = findViewById(R.id.backFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

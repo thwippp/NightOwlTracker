@@ -117,7 +117,7 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
                 String item = mCategory.getItemAtPosition(i).toString();
 
                 // Showing selected termSpinner item
-                Toast.makeText(mCategory.getContext(), "Item: " + item, Toast.LENGTH_LONG).show();
+                // Toast.makeText(mCategory.getContext(), "Item: " + item, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -132,7 +132,7 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
                 mClassId.setSelection(cTitle.indexOf(cTitleItem));
                 cClassIdItem = cClassId.get(i);
                 // Showing selected termSpinner item
-                Toast.makeText(mClassId.getContext(), "Title: " + cTitleItem + ".\nClassId: " + cClassIdItem, Toast.LENGTH_LONG).show();
+                // Toast.makeText(mClassId.getContext(), "Title: " + cTitleItem + ".\nClassId: " + cClassIdItem, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -143,7 +143,7 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
         mDueDateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Toast.makeText(LineItemEditorActivity.this, "Checked.", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(LineItemEditorActivity.this, "Checked.", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "onCheckedChanged...");
 
                 if (mDueDate.getText() != null) {
@@ -175,7 +175,7 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
                         Log.i(TAG, "dueDate: " + dueDate.toString());
                         scheduleNotification(getNotification(mTitle.getText().toString(), mDescription.getText().toString() + "\n" + dueDate.toString()), diff);
 
-                        Toast.makeText(LineItemEditorActivity.this, "Your notification has been scheduled for " + dueDate.toString(), Toast.LENGTH_SHORT);
+                        Toast.makeText(LineItemEditorActivity.this, "Your notification has been scheduled for " + dueDate.toString(), Toast.LENGTH_SHORT).show();
 
                     } catch (ParseException e) {
                         Log.i(TAG, "error");
@@ -205,7 +205,7 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
     }
 
     private void createNotificationChannel() {
-        System.out.println("Creating Notification Channel.");
+        //System.out.println("Creating Notification Channel.");
 
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -220,24 +220,8 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
     }
 
     //Notification
-    private void scheduleNotification(Notification notification, Date date) {
-        System.out.println("Scheduling Notification.");
-        Log.i(TAG, "scheduleNotification, date");
-
-        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
-        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
-        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        long futureInMillis = date.getTime();
-        Log.i(TAG, "scheduleNotification: futureInMillis" + futureInMillis);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
-    }
-
-    //Notification
     private void scheduleNotification(Notification notification, int delay) {
-        System.out.println("Scheduling Notification.");
+        //System.out.println("Scheduling Notification.");
         Log.i(TAG, "scheduleNotification, delay");
 
         Intent notificationIntent = new Intent(this, NotificationPublisher.class);
@@ -255,7 +239,7 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
 
     @TargetApi(Build.VERSION_CODES.O)
     private Notification getNotification(String title, String content) {
-        System.out.println("Getting Notification.");
+        //System.out.println("Getting Notification.");
         Log.i(TAG, "getNotification");
 
         Notification.Builder builder = new Notification.Builder(this);
@@ -309,7 +293,7 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
         } else {
             setTitle("Edit Line Item...");
             int lineItemId = extras.getInt(LINE_ITEM_ID);
-            System.out.println("LineItemId: " + lineItemId);  //
+            //System.out.println("LineItemId: " + lineItemId);  //
             mViewModel.loadData(lineItemId);
         }
     }
@@ -319,7 +303,7 @@ public class LineItemEditorActivity extends AppCompatActivity implements Adapter
         if (!mNewData) {
             // existing data. display new icon
             MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_editor, menu);
+            inflater.inflate(R.menu.menu_sharing, menu);
         }
         return super.onCreateOptionsMenu(menu);
     }

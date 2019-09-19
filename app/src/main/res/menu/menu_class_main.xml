@@ -1,18 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.nightowltracker.activities.AcademicSessionMainActivity">
-
-    <item
-        android:id="@+id/action_add_sample_data"
-        android:orderInCategory="99"
-        android:title="@string/action_add_sample_data"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_delete_all"
-        android:orderInCategory="100"
-        android:title="@string/delete_all"
-        app:showAsAction="never" />
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/action_go_to_main_activity"
@@ -38,6 +26,12 @@
         android:id="@+id/action_go_to_user_main_activity"
         android:orderInCategory="105"
         android:title="Users"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_go_to_class_by_term"
+        android:orderInCategory="106"
+        android:title="View Classes By Term"
         app:showAsAction="never" />
 
 </menu>

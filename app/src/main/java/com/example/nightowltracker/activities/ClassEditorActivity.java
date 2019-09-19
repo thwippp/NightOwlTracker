@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -104,7 +103,7 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
                 String item = mStatus.getItemAtPosition(i).toString();
 
                 // Showing selected termSpinner item
-                Toast.makeText(mStatus.getContext(), "Item: " + item, Toast.LENGTH_LONG).show();
+                // Toast.makeText(mStatus.getContext(), "Item: " + item, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -121,8 +120,10 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
                 termSpinner.setSelection(asTitle.indexOf(asTitleItem));
                 asSessionIdItem = asSessionId.get(i);
 
+                // TODO HERE
+
                 // Showing selected termSpinner item
-                Toast.makeText(termSpinner.getContext(), "Title: " + asTitleItem + ".\nSessionId: " + asSessionIdItem, Toast.LENGTH_LONG).show();
+                // Toast.makeText(termSpinner.getContext(), "Title: " + asTitleItem + ".\nSessionId: " + asSessionIdItem, Toast.LENGTH_LONG).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -138,8 +139,10 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
                 userSpinner.setSelection(uUsername.indexOf(uUsernameItem));
                 uUserIdItem = uUserId.get(i);
 
+                userTextArea.setText(uUserText.get(uUserId.indexOf(uUserIdItem)));
+
                 // Showing selected termSpinner item
-                Toast.makeText(userSpinner.getContext(), "Username: " + uUsernameItem + ".\nUserId: " + uUserIdItem, Toast.LENGTH_LONG).show();
+                // Toast.makeText(userSpinner.getContext(), "Username: " + uUsernameItem + ".\nUserId: " + uUserIdItem, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -294,7 +297,7 @@ public class ClassEditorActivity extends AppCompatActivity implements AdapterVie
                 uUserIdItem);
         finish();
 
-        System.out.println("saving int to Db: " + asSessionIdItem);
+        //System.out.println("saving int to Db: " + asSessionIdItem);
     }
 
     // Live Data destroys data when the orientation changes.

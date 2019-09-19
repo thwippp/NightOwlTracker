@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@string/assessments_and_notes"
+            android:text="Assessments and Notes"
             android:textSize="36sp" />
 
         <ImageView

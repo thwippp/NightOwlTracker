@@ -40,6 +40,8 @@ public class UserMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_main);
         mRecyclerView = findViewById(R.id.recycler_view);
 
+        setTitle("Users");
+
         final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +105,7 @@ public class UserMainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_academic_session_main_activity, menu);
+        getMenuInflater().inflate(R.menu.menu_navigation_items, menu);
         return true;
     }
 

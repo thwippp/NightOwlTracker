@@ -42,7 +42,10 @@ public class LineItemMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_main);
-        mRecyclerView = findViewById(R.id.recycler_view);  //TODO adapter per class?
+        mRecyclerView = findViewById(R.id.recycler_view);
+
+        setTitle("Assessments and Notes");
+
 
         final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -102,8 +105,8 @@ public class LineItemMainActivity extends AppCompatActivity {
                         LineItemEditorActivity.cClassId.add(c.getClassId());
                         LineItemEditorActivity.cTitle.add(c.getTitle());
 
-                        System.out.println("Adding value to cClassId: " + c.getClassId());
-                        System.out.println("Adding value to cTitle: " + c.getTitle());
+                        //System.out.println("Adding value to cClassId: " + c.getClassId());
+                        //System.out.println("Adding value to cTitle: " + c.getTitle());
                     }
                 }
             }
@@ -131,7 +134,7 @@ public class LineItemMainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_academic_session_main_activity, menu);
+        getMenuInflater().inflate(R.menu.menu_navigation_items, menu);
         return true;
     }
 

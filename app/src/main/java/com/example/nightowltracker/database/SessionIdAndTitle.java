@@ -24,12 +24,12 @@ public class SessionIdAndTitle {
 
     public static void addSessionId(int sessionId) {
         sessionIdArrayList.add(sessionId);
-        System.out.println("Added " + sessionId + " to sessionIdArrayList.");
+        //System.out.println("Added " + sessionId + " to sessionIdArrayList.");
     }
 
     public static void addTitle(String title) {
         titleArrayList.add(title);
-        System.out.println("Added " + title + " to titleArrayList.");
+        //System.out.println("Added " + title + " to titleArrayList.");
     }
 
     public static ArrayList<Integer> getSessionIdArrayList() {

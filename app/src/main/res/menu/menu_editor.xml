@@ -3,12 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.nightowltracker.activities.AcademicSessionEditorActivity">
-    <item
-        android:id="@+id/action_share_line_item"
-        android:icon="@android:drawable/ic_menu_share"
-        android:orderInCategory="99"
-        android:title="Share"
-        app:showAsAction="always" />
+
     <item
         android:id="@+id/action_delete"
         android:orderInCategory="100"
